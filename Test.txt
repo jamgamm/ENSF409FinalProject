@@ -1,0 +1,28 @@
+
+Test Database
+- connections
+- 
+
+Test Exceptions
+- FileIOEXception
+- IllegalArgumentException
+- OrderCannotBeValidatedException
+** note add exceptions to family and hamper
+
+Test GUI
+
+Test constructors
+
+Test bestHamperCombination
+(make sure the best combination is being chosen for the hamper)
+
+Test calculateNutritionalNeedsFamily (calculateWeeklyFamilyNutritionalNeeds method)
+
+
+** Hamper
+Test foodListUpdated (addtoFoodList method)
+
+** Inventory
+Test removeItem
+
+
