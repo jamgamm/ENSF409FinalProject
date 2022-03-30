@@ -73,7 +73,7 @@ public class Test {
   }
   
   @Test
-  public void testGetters(){
+  public void testProfileGetters(){
     int sampleGrains = sampleProfile.getGrainContent();
     int expectedGrains = 400;
     assertEquals("Method getGrainContent did not return the expected result: ", expectedGrains, sampleGrains);
@@ -100,7 +100,7 @@ public class Test {
   }
   
   @Test
-  public void testGetters(){
+  public void testFoodGetters(){
     String sampleID = sampleFood.getID();
     String expectedID = "1";
     assertEquals("Method getID did not return the expected result: ", expectedID, sampleID);
@@ -114,7 +114,7 @@ public class Test {
   /* this section is for testing the methods related to the Inventory class*/
   
   @Test
-  public void testGetter(){
+  public void testInventoryGetter(){
     String sampleInventoryID = sampleInventory.getItem();
     String expectedInventoryID = "1";
     assertEquals("Method getItem did not return the expected result: ", expectedInventoryID, sampleInventoryID);
@@ -146,14 +146,14 @@ public class Test {
   }
   
   @Test
-  public void setNutriNeeds(){
+  public void testSetNutriNeeds(){
     sampleHamper.setNutritionalNeedsFamily(new NutrionalProfile(400,700,650,750,2501));
     NutritionalProfile sampleNutriProfile = sampleHamper.getNutritionalNeedsFamily;
     assertNotNull("Method setNutritionalNeedsFamily did not create a NutritionalProfile object", sampleNutriProfile);
   }
   
   @Test
-  public void getNutriNeeds(){
+  public void testGetNutriNeeds(){
     NutritionalProfile sampleNutriProfile = sampleHamper.getNutritionalNeedsFamily;
     assertNotNull("Method getNutritionalNeedsFamily did not return a NutritionalProfile object", sampleNutriProfile);
   }
