@@ -52,12 +52,14 @@ public class Test {
   /* this section is for testing the methods related to the client class */
   @Test
   public void testClientConstructor(){
+    //test the constructor when given a client of category adult male
     Client sampleClient = new Client("Adult male");
     assertNotNull("Client constructor did not create an object when given valid data", sampleClient);
   }
   
   @Test
   public void testClientGetters(){
+    //test the getters for the client class
     String sampleCategory = sampleClient.getCategory();
     String expectedCategory = "Adult male";
     assertEquals("Method getCategory did not return the expected result: ", expectedCategory, sampleCategory);
@@ -68,12 +70,14 @@ public class Test {
   /* this section is for testing the methods related to the Nutritional Profile class */
   @Test
   public void testProfileConstructor(){
+    //test the constructor for nutrtional profile given all valid int values
     NutritionalProfile sampleProfile = new NutritionalProfile(400,700,650,750,2500);
     assertNotNull("NutritionalProfile constructor did not create an object when given valid data", sampleProfile);
   }
   
   @Test
   public void testProfileGetters(){
+    //test the getters for the nutritional profile class
     int sampleGrains = sampleProfile.getGrainContent();
     int expectedGrains = 400;
     assertEquals("Method getGrainContent did not return the expected result: ", expectedGrains, sampleGrains);
@@ -95,12 +99,14 @@ public class Test {
   
   @Test
   public void testFoodConstructor(){
+    //test the constructor when given valid id and name
     Food sampleFood = new Food("1", "Tomato Sauce, jar");
     assertNotNull("Food constructor did not create an object when given valid data", sampleFood);
   }
   
   @Test
   public void testFoodGetters(){
+    //test getters for food class
     String sampleID = sampleFood.getID();
     String expectedID = "1";
     assertEquals("Method getID did not return the expected result: ", expectedID, sampleID);
@@ -115,6 +121,7 @@ public class Test {
   
   @Test
   public void testInventoryGetter(){
+    //test the getter for inventory class
     String sampleInventoryID = sampleInventory.getItem();
     String expectedInventoryID = "1";
     assertEquals("Method getItem did not return the expected result: ", expectedInventoryID, sampleInventoryID);
@@ -122,6 +129,7 @@ public class Test {
     
   @Test
   public void testRemove(){
+    //test the remove function by trying to remove tomato sauce
     sampleInventory.remove("1", "Tomato Sauce, jar");
     String sampleInventoryID = sampleInventory.getItem();
     String expectedInventoryID = null;
@@ -132,12 +140,14 @@ public class Test {
   
   @Test
   public void testHamperConstructor(){
+    //test the constructor when given a valid nutrtional profile
     Hamper sampleHamper = new Hamper(new NutritionalProfile(400,700,650,750,2500));
     assertNotNull("Hamper constructor did not create an object when given valid data", sampleHamper);
   }
   
   @Test
   public void testAdd(){
+    //test the add to food list method by adding tomato sauce
     sampleHamper.addToFoodList(sampleFood);
     Food theFood = foodList.last();
     String theFoodID = theFood.getID();
@@ -147,6 +157,7 @@ public class Test {
   
   @Test
   public void testSetNutriNeeds(){
+    //test setter for setting the nutritional needs
     sampleHamper.setNutritionalNeedsFamily(new NutrionalProfile(400,700,650,750,2501));
     NutritionalProfile sampleNutriProfile = sampleHamper.getNutritionalNeedsFamily;
     assertNotNull("Method setNutritionalNeedsFamily did not create a NutritionalProfile object", sampleNutriProfile);
@@ -154,6 +165,7 @@ public class Test {
   
   @Test
   public void testGetNutriNeeds(){
+    //test getter
     NutritionalProfile sampleNutriProfile = sampleHamper.getNutritionalNeedsFamily;
     assertNotNull("Method getNutritionalNeedsFamily did not return a NutritionalProfile object", sampleNutriProfile);
   }
