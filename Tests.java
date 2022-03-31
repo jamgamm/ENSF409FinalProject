@@ -9,7 +9,8 @@ import java.util.*;
 public class Test {
   private Hamper exampleHamper = null;
   private Family sampleFamily = new Family(1,2,3,4, exampleHamper);
-  Client sampleClient = new Client("Adult male");
+  private Client sampleClient = new Client("Adult male");
+  private Hamper badHamper = null;
   
   /* this section is for testing the methods in the family class 
   the first 4 tests under this comment are all for testing methods in family class */
@@ -170,17 +171,95 @@ public class Test {
     assertNotNull("Method getNutritionalNeedsFamily did not return a NutritionalProfile object", sampleNutriProfile);
   }
    
+  /* this section will test the methods related to the order form class */
   
-  
-  
-  
-  
-  
-  //for testing the formatted output interface, how??? work on later
   @Test
-  public void testFormatGetter(){
+  public void testCheckValid(){
+    boolean expectedValidity = true;
+    boolean sampleValidity = sampleOrderForm.checkValid(sampleHamper);
+    assertEquals("Method checkValid did not return the expected result: ", expectedValidity, sampleValidity);
     
-
-
-
-}
+ /* this section will test the methods related to the order class */
+  
+  @Test
+  public void testOrderConstructor(){
+    Order sampleOrder = new Order(sampleFamily);
+    assertNotNull("Order constructor did not create an object when given valid data", sampleOrder);
+  }
+    
+  @Test
+  public void testFindBestCombo(){
+    Hamper sampleBestCombo = sampleOrder.findBestCombo();
+    Hamper expectedBestCombo = //something ;
+    assertEquals("Method findBestCombo did not return the expected result: ", expectedBestCombo, sampleBestCombo);
+  }
+    
+  /* this section will test the exceptions for various methods */
+    
+  @Test
+  public void testFamilyConstructorException(){
+    //test that an illegal arguement exception is thrown when invalid data is given
+    Throwable e = null;
+    try{
+      new Family("Adult male");
+    }
+    catch (Throwable ex){
+      assertTrue(e.instanceofIllegalArguementException);
+    }
+  }
+    
+  @Test
+  public void testClientConstructorException(){
+    //test that an illegal arguement exception is thrown when invalid data is given
+    Throwable e = null;
+    try{
+      new Client(1);
+    }
+    catch (Throwable ex){
+      assertTrue(e.instanceofIllegalArguementException);
+    }
+  }
+    
+  @Test
+  public void testCheckValid(){
+    //test that an illegal arguement exception is thrown when invalid data is given
+    Throwable e = null;
+    try{
+      sampleOrderForm.checkValid(badHamper);
+    }
+    catch (Throwable ex){
+      assertTrue(e.instanceofIllegalArguementException);
+    }
+  }
+    
+  @Test
+  public void testFoodConstructorException(){
+    //test that an illegal arguement exception is thrown when invalid data is given
+    Throwable e = null;
+    try{
+      new Food(11, "apple");
+    }
+    catch (Throwable ex){
+      assertTrue(e.instanceofIllegalArguementException);
+    }
+  }
+    
+  @Test
+  public void testAddToFoodListException(){
+    //test that an order cannot be validated exception is thrown when invalid data is given
+    Throwable e = null;
+    try{
+      sampleHamper.addToFoodList(badFood);
+    }
+    catch (Throwable ex){
+      assertTrue(e.instanceofOrderCannotBeValidatedException);
+    }
+  }
+    
+    
+  
+  
+  
+  
+  
+ 
