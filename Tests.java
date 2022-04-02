@@ -11,6 +11,7 @@ public class Test {
   private Family sampleFamily = new Family(1,2,3,4, exampleHamper);
   private Client sampleClient = new Client("Adult male");
   private Hamper badHamper = null;
+  private Food testFood = new Food("12", "banana");
   
   /* this section is for testing the methods in the family class 
   the first 4 tests under this comment are all for testing methods in family class */
@@ -198,66 +199,139 @@ public class Test {
     
   @Test
   public void testFamilyConstructorException(){
+    boolean passed = false;
     //test that an illegal arguement exception is thrown when invalid data is given
-    Throwable e = null;
+    
     try{
-      new Family("Adult male");
+      new Family("cat");
     }
-    catch (Throwable ex){
-      assertTrue(e.instanceofIllegalArguementException);
+    catch (IllegalArgumentException e){
+      passed = true;
     }
+    catch (Exception e) { }
+        assertTrue("Family constructor did not throw IllegalArgumentException when given invalid data", passed);
+    
+    passed = true;
+    try{
+      new Family(1, 0, 0, 0);
+    }
+    catch (IllegalArgumentException e){
+      passed = false;
+    }
+    catch (Exception e) { }
+        assertTrue("Family constructor throws an IllegalArgumentException when given valid data", passed);
   }
     
+   
   @Test
   public void testClientConstructorException(){
     //test that an illegal arguement exception is thrown when invalid data is given
-    Throwable e = null;
+    boolean passed = false;
     try{
       new Client(1);
     }
-    catch (Throwable ex){
-      assertTrue(e.instanceofIllegalArguementException);
+    catch (IllegalArgumentException e){
+      passed = true;
     }
-  }
+    catch (Exception e) { }
+        assertTrue("Client constructor did not throw IllegalArgumentException when given invalid data", passed);
+    
+    passed = true;
+     try{
+      new Client("Adult male");
+    }
+    catch (IllegalArgumentException e){
+      passed = false;
+    }
+    catch (Exception e) { }
+        assertTrue("Client constructor throws IllegalArgumentException when given valid data", passed);
+  } 
     
   @Test
   public void testCheckValid(){
     //test that an illegal arguement exception is thrown when invalid data is given
-    Throwable e = null;
+    boolean passed = false;
     try{
       sampleOrderForm.checkValid(badHamper);
     }
-    catch (Throwable ex){
-      assertTrue(e.instanceofIllegalArguementException);
+    catch (IllegalArgumentException e){
+      passed = true;
     }
+    catch (Exception e) { }
+        assertTrue("Check valid method in Order Form class did not throw IllegalArgumentException when given invalid data", passed);
+    
+    passed = true;
+    NutritionalProfile clientNutritionalProfile = new NutritionalProfile(400,700,650,750,2500);
+    LinkedList<Food> foodList = new LinkedList<>();
+    foodList.add("1", "Tomato sauce, jar", new NutritionalProfile(400,700,650,750,2500));
+    Hamper validHamper = new Hamper(clientNutritionalProfile, foodList);
+    try{
+      sampleOrderForm.checkValid(validHamper);
+    }
+    catch (IllegalArgumentException e){
+      passed = false;
+    }
+    catch (Exception e) { }
+        assertTrue("Check valid method in Order Form class throws IllegalArgumentException when given valid data", passed);
+    
   }
     
   @Test
   public void testFoodConstructorException(){
     //test that an illegal arguement exception is thrown when invalid data is given
-    Throwable e = null;
+    boolean passed = false;
     try{
       new Food(11, "apple");
     }
-    catch (Throwable ex){
-      assertTrue(e.instanceofIllegalArguementException);
+    catch (IllegalArgumentException e){
+      passed = true;
     }
+    catch (Exception e) { }
+        assertTrue("Food constructor did not throw IllegalArgumentException when given invalid data", passed);
+    
+    passed = true;
+    try{
+      new Food("11", "apple");
+    }
+    catch (IllegalArgumentException e){
+      passed = false;
+    }
+    catch (Exception e) { }
+        assertTrue("Food constructor throws IllegalArgumentException when given valid data", passed);
+    
   }
     
   @Test
   public void testAddToFoodListException(){
     //test that an order cannot be validated exception is thrown when invalid data is given
-    Throwable e = null;
+    boolean passed = true;
+    Inventory inv = new Inventory("url", "student", "ensf409");  // assume url is valid
+ 
     try{
-      sampleHamper.addToFoodList(badFood);
+      sampleHamper.addToFoodList(testFood);
     }
-    catch (Throwable ex){
-      assertTrue(e.instanceofOrderCannotBeValidatedException);
+    catch (IllegalArgumentException e){
+      passed = false;
     }
+    catch (Exception e) { }
+        assertTrue("addToFoodList method throws IllegalArgumentException when given valid data", passed);
+    
+    inv.remove("12"); // removing testFood from the inventory
+    passed = false;
+    try{
+      sampleHamper.addToFoodList(testFood); // trying to add a food object that no longer exists
+    }
+    catch (IllegalArgumentException e){
+      passed = true;
+    }
+    catch (Exception e) { }
+        assertTrue("addToFoodList method does not throw IllegalArgumentException when given invalid data", passed);
+    
   }
     
     
   
+
   
   
   
