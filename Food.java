@@ -10,7 +10,7 @@ public class Food {
   private final String NAME;
   private NutritionalProfile nutritionalProfile;
   
-  public Food(String ID, String name){
+  public Food(String ID, String name) throws IllegalArgumentException{
     //write implementation
   }
   
