@@ -8,7 +8,7 @@ public class Client {
   private String category;
   private final NutrionalProfile NUTRITIONALPROFILE;
   
-  public Client(String category){
+  public Client(String category) throws IllegalArgumentException{
     //write implementation
   }
   
