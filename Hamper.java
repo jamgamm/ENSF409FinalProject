@@ -6,11 +6,11 @@ public class Hamper {
   private NutrionalProfile nutritionalNeedsFamily;
   private LinkedList<Food> foodList = new LinkedList<Food>();
   
-  public Hamper(NutritionalProfile familyNeeds){
+  public Hamper(NutritionalProfile familyNeeds) throws IllegalArgumentException{
     this.nutritionalNeedsFamily = familyNeeds;
   }
   
-  public void addToFoodList(Food foodItem){
+  public void addToFoodList(Food foodItem)throws OrderCannotBeValidatedException{
   
   }
   
