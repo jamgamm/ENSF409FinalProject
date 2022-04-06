@@ -22,7 +22,7 @@ public class Food {
     return this.NAME;
   }
   
-  public getNutrionalProfile(){
+  public NutrionalProfile getNutritionalProfile(){
     return this.nutritionalProfile;
   }
   
