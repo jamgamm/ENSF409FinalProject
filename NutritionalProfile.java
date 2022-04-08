@@ -9,7 +9,7 @@ public class NutritionalProfile {
   
   public NutritionalProfile (int wholeGrains, int fruitVeggies, int protein, int other, int calories){
     this.grainContent = wholeGrains;
-    thisfvContent = fruitVeggies;
+    this.fvContent = fruitVeggies;
     this.proContent = protein;
     this.other = other;
     this.calories = calories;
