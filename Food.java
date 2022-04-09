@@ -11,7 +11,8 @@ public class Food {
   private NutritionalProfile nutritionalProfile;
   
   public Food(String ID, String name) throws IllegalArgumentException{
-    //write implementation
+    this.ID = ID;
+    this.NAME = name;
   }
   
   public String getID(){
@@ -27,7 +28,7 @@ public class Food {
   }
   
   public void setNutrionalProfile(String profile){
-    //write implementation
+    this.nutrionalProfile = profile;
   }
   
 }
