@@ -9,7 +9,8 @@ public class Client {
   private final NutrionalProfile NUTRITIONALPROFILE;
   
   public Client(String category) throws IllegalArgumentException{
-    //write implementation
+    this.category = category;
+    //I think this one uses the enum right?
   }
   
   public String getCategory(){
