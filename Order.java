@@ -12,6 +12,7 @@ public class Order {
     // have a score system to determine best hamper combination
     // if a hamper does not reach the requirement for a particular nutrition then the score is  and hamper should be dropped
     // eg grainScore = 1; fvScore = 1; proScore = 2; otherScore = 2; tCaloriesScore = ; 
+    //score could be the amount that is over the minimum needed
     //implementation
     
     // maybe a different building algorithm for each order
