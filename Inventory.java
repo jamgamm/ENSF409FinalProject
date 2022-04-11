@@ -4,9 +4,9 @@ import java.sql.*;
 
 public class Inventory {
   //username and password need to be student and ensf409, url is the url for the database we'll use
-  private final String URL = "jdbc:mysql://localhost/food_inventory";
-  private final String USERNAME = "student";
-  private final String PASSWORD = "ensf409";
+  private String URL = "jdbc:mysql://localhost/food_inventory";
+  private String USERNAME = "student";
+  private String PASSWORD = "ensf409";
   
   //need these for connecting and accessing the database
   private connection dbConnect;
@@ -25,7 +25,7 @@ public class Inventory {
   
   public Inventory (String url, String user, String password){
       // Database URL
-      this.DBURL = url;
+      this.URL = url;
 
       //  Database credentials
       this.USERNAME = user;
@@ -40,7 +40,7 @@ public class Inventory {
         //getConnection function was used to connect to database
         //arguements for getConnection were taken from getters
       try{
-          dbConnect = DriverManager.getConnection(getDburl(),getUsername(),getPassword());
+          dbConnect = DriverManager.getConnection(getURL(),getUsername(),getPassword());
       } 
       catch (SQLException e) {
           e.printStackTrace();
@@ -135,7 +135,7 @@ public class Inventory {
             //store this template into a preparedStatement for easy access
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
 
-            myStmt.setString(1, id);
+            myStmt.setInt(1, itemID);
                         
             int rowCount = myStmt.executeUpdate();
             System.out.println("Rows affected: " + rowCount);
