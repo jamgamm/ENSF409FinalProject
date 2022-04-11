@@ -3,6 +3,9 @@ package edu.ucalgary.ensf409;
 import java.util.*;
 import java.io.*;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class OrderForm{
   
   private ArrayList<Family> request;
@@ -40,7 +43,35 @@ public class OrderForm{
   public static void getUserInput(String args[]) throws IllegalArgumentException{ //I think we need to add this exception to the UML
     //we also need to figure out the gui stuff I think for this (I'm not sure how to connect the user input)
     //I'm not sure if we would even need this if we are doing the gui stuff
+    //I might add a gui class because it might just be a bit easier
     
+    /*
+
+        EventQueue.invokeLater(() -> {
+            JFrame frame = new JFrame("My First Frame");
+            frame.setSize(400, 400);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            
+            JPanel buttonsPanel = new JPanel();
+            JButton myButton = new JButton("Click here!");
+            buttonsPanel.add(myButton);
+            frame.getContentPane().add(BorderLayout.NORTH, buttonsPanel);
+            frame.setVisible(true);
+        });
+
+    }
+    
+    /*
+Copyright Ann Barcomb and Emily Marasco, 2021
+Licensed under GPL v3
+See LICENSE.txt for more information.
+*/
+
+            
+           
+    }
+}
+}*/
     try{
       String 
     }
