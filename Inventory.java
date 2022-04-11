@@ -15,11 +15,11 @@ public class Inventory {
   //might be easier to use hashmap for the inventory
   //key is an itemID which maps to a Food object
   //this way we can access elements in a map through ID and access the corresponding Food
-  private HashMap<int, Food> inventoryMap = new HashMap<int, Food>();
+  private HashMap<int, NutritionalProfile> inventoryMap = new HashMap<int, NutritionalProfile>();
   
   //similarly, store the client nutritonal info in a hashmap too??
   //key is the Client ID (1,2,3,4) which maps to nutrtional profile or food or family object?
-  private HashMap<int, Food> clientMap = new HashMap<int, Food>();
+  private HashMap<int, NutritionalProfile> clientMap = new HashMap<int, NutritionalProfile>();
   
   //private LinkedList<Food> inventoryList = new LinkedList<Food>();
   
@@ -79,9 +79,9 @@ public class Inventory {
         
         //make a new food object using the values we got for each item as the arguements
         //combine nutri profile and food class?? will make it easier to keep all the info in 1 class
-        Food makeFood = new Food(itemID, itemName, grainContent, FVContent, proContent, other, calories);
+        NutritionalProfile makeProfile = new NutritionalProfile(itemID, itemName, grainContent, FVContent, proContent, other, calories);
         //store the food into the hash map where the itemID is the key
-        inventoryMap.put(itemID, makeFood);
+        inventoryMap.put(itemID, makeProfile);
       }
       myStmt.close();
     }
@@ -113,9 +113,9 @@ public class Inventory {
         
         //make a new food object using the values we got for each item as the arguements
         //combine nutri profile and food class?? will make it easier to keep all the info in 1 class
-        Food makeFood = new Food(itemID, itemName, grainContent, FVContent, proContent, other, calories);
+        NutritionalProfile makeProfile = new NutritionalProfile(itemID, itemName, grainContent, FVContent, proContent, other, calories);
         //store the food into the hash map where the itemID is the key
-        clientMap.put(clientID, makeFood);
+        clientMap.put(clientID, makeProfile);
       }
       myStmt.close();
     }
@@ -128,11 +128,30 @@ public class Inventory {
   public void remove(int itemID){
     //remove the key, which will in turn also remove all the food data associated with it from the map
     inventoryMap.remove(itemID);
+    //remove the item from the database too
+    		try {
+            //create a general template for the parameters
+            String query = "DELETE FROM available_food WHERE itemID = ?";
+            //store this template into a preparedStatement for easy access
+            PreparedStatement myStmt = dbConnect.prepareStatement(query);
+
+            myStmt.setString(1, id);
+                        
+            int rowCount = myStmt.executeUpdate();
+            System.out.println("Rows affected: " + rowCount);
+            
+            myStmt.close();
+
+        }
+        //catch exception if database cannot be accessed/any sort of errors
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
   }
   
   //this for if we're going to return Food object
-  public Food getItem(int itemID){
-    Food wantedFood = inventoryMap.get(itemID);
+  public NutritionalProfile getItem(int itemID){
+    NutritionalProfile wantedFood = inventoryMap.get(itemID);
     return wantedFood;
   }
   
