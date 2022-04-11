@@ -4,6 +4,7 @@ public class Order {
   private LinkedList[] hamperList;
   
   public Order(){
+  //might need a family object
   
   }
   
