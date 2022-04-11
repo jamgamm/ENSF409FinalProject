@@ -20,8 +20,8 @@ public class Family {
     
   }
    public int[] getFamilyMembers() { ////finish the method???
-		
-	   return ;
+	   int[] familyMembers = {adultMale, adultFemale, childAbove, childBelow};
+	   return familyMembers;
 }
   
   public getFamilyNutritionalNeeds(){ ////finish the method???
