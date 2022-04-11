@@ -1,14 +1,14 @@
 package edu.ucalgary.ensf409
 
 public class Order {
-  private LinkedList[] hamperList;
+  //public LinkedList[] hamperList;
   
   public Order(){
   //might need a family object
   
   }
   
-  public Hamper findBestCombo(){
+  public Hamper findBestCombo(LinkedList[] hamperList){
     // have a score system to determine best hamper combination
     // if a hamper does not reach the requirement for a particular nutrition then the score is  and hamper should be dropped
     // eg grainScore = 1; fvScore = 1; proScore = 2; otherScore = 2; tCaloriesScore = ; 
