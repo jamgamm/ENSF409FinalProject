@@ -10,7 +10,7 @@ public class Family {
   private Hamper hamper;
   private NutritionalProfile nutritionalNeedsFamily;
   
-  Public String Family(int adultMale, int adultFemale, int childAbove, int childBelow, Hamper hamper){
+  Public String Family(int adultMale, int adultFemale, int childAbove, int childBelow, Hamper hamper)throws IllegalArgumentException{
 
     this.adultMale = adultMale;
     this.adultFemale = adultFemale;
@@ -21,11 +21,11 @@ public class Family {
   }
    public int[] getFamilyMembers() { ////finish the method???
 		
-		return ;
-	}
+	   return ;
+}
   
   public getFamilyNutritionalNeeds(){ ////finish the method???
-    return ;
+	  return ;
   }
   
   public calculateWeeklyFamilyNutrtionalNeeds(){ ////finish the method???
