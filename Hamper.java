@@ -11,7 +11,7 @@ public class Hamper {
   }
   
   public void addToFoodList(Food foodItem)throws OrderCannotBeValidatedException{
-  
+    this.foodList = foodItem;
   }
   
   public NutritionaProfile getNutritionalNeedsFamily(){
@@ -20,7 +20,7 @@ public class Hamper {
   }
   
   public void setNutritionalNeedsFamily(NutritionalProfile nutritionalNeedsFamily){
-  
+    this.nutritionalNeedsFamily = nutritionalNeedsFamily;
   }
 
 }
