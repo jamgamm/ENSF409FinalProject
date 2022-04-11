@@ -5,6 +5,7 @@ import java.util.*;
 public class Hamper {
   private NutrionalProfile nutritionalNeedsFamily;
   private LinkedList<Food> foodList = new LinkedList<Food>();
+  private NutritionalProfile hamperProfile;
   
   public Hamper(NutritionalProfile familyNeeds) throws IllegalArgumentException{
     this.nutritionalNeedsFamily = familyNeeds;
