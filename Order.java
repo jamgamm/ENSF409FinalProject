@@ -32,9 +32,28 @@ public class Order {
     // once all possible hampers have been made
     // compare and choose the best
     
+    ArrayList<Integer> scoresList = new ArrayList<>();
+    NutritionalProfile want = hamperList.get(i).getNutritionalNeedsFamily();
+    int grains = want.getGrainContent();
+    int fv = want.getFVContent();
+    int pro = want.getProContent();
+    int other = want.getOtherContent();
+    for (int i = 0; i < hamperList.size(); i++)
+    {
+      NutritionalProfile have = hamperList.get(i).getHamperProfile();
+      int grainsH = have.getGrainContent();
+      int fvH = have.getFVContent();
+      int proH = have.getProContent();
+      int otherH = have.getOtherContent();
+      
+      int difference = (grainsH - grains) + (fvH - fv) + (proH - pro) + (otherH - other);
+      scoresList.add(difference);
+     }
     
-  
-    return bestHamper;
+    ArrayList<Integer> scoresSortedList = scoresList.sort();
+    int index = scoresList.indexOf(scoresSortedList.get(0));
+    
+    return hamperList.get(index);
   }
 
 }
