@@ -24,12 +24,19 @@ public class Family {
 	   return familyMembers;
 }
   
-  public getFamilyNutritionalNeeds(){ ////finish the method???
+  public NutritionalProfile getFamilyNutritionalNeeds(){ ////finish the method???
 	  return ;
   }
   
-  public calculateWeeklyFamilyNutrtionalNeeds(){ ////finish the method???
-    
+	public int[] convertPercent(){
+		//access the nutritional profile for the desried person
+		//then convert each part of the profile (grains fv etc) from percent to a number
+		//store all these numbers into an int array
+	}
+	
+  public NutritionalProfile calculateWeeklyFamilyNutrtionalNeeds(){ ////finish the method???
+    //use the getter for family nutritional needs
+    //then multiply by 7
     return ;
   }
   
