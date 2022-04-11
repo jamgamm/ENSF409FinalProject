@@ -11,26 +11,25 @@ import java.awt.FlowLayout;
 import java.io.*;
 import java.util.*;
 
-public class GUIPetID extends JFrame implements ActionListener, MouseListener{ //I will fix these
+public class GUI extends JFrame implements ActionListener, MouseListener{ 
 
-    private String firstName;
-    private String lastName;
-    private String petName;
-    private int birthYear;
+    private String female;
+    private String male;
+    private String over;
+    private String under;
     
-    private JLabel instructions;
-    private JLabel fnLabel;
-    private JLabel lnLabel;
-    private JLabel petLabel;
-    private JLabel yearLabel;
+    private JLabel adM;
+    private JLabel adF;
+    private JLabel chO;
+    private JLabel chY;
     
-    private JTextField fnInput;
-    private JTextField lnInput;
-    private JTextField petInput;
-    private JTextField yearInput;
+    private JTextField m;
+    private JTextField f;
+    private JTextField o;
+    private JTextField y;
     
-    public GUIPetID(){
-        super("Create a PetID");
+    public GUI(){
+        super("Create a Hamper");
         setupGUI();
         setSize(500,300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
@@ -39,21 +38,21 @@ public class GUIPetID extends JFrame implements ActionListener, MouseListener{ /
     
     public void setupGUI(){
         
-        instructions = new JLabel("Please enter your information to generate an identifier.");
-        fnLabel = new JLabel("First Name:");
-        lnLabel = new JLabel("Last Name:");
-        petLabel = new JLabel("Pet Name:");
-        yearLabel = new JLabel("Pet Birth Year:");
+        instructions = new JLabel("Please enter the number of family members to generate an order.");
+        adF = new JLabel("Adult Female:");
+        adM = new JLabel("Adult Male:");
+        chO = new JLabel("Child Over 8:");
+        chY = new JLabel("Child Under 8:");
         
-        fnInput = new JTextField("e.g. Dorothy", 15);
-        lnInput = new JTextField("e.g. Gale", 15);
-        petInput = new JTextField("e.g. Toto", 15);
-        yearInput = new JTextField("e.g. 2000", 15);    
+        f = new JTextField("e.g. 1", 15);
+        m = new JTextField("e.g. 0", 15);
+        o = new JTextField("e.g. 0", 15);
+        y = new JTextField("e.g. 0", 15);    
         
-        fnInput.addMouseListener(this);
-        lnInput.addMouseListener(this);
-        petInput.addMouseListener(this);
-        yearInput.addMouseListener(this);
+        f.addMouseListener(this);
+        m.addMouseListener(this);
+        o.addMouseListener(this);
+        y.addMouseListener(this);
         
         JButton submitInfo = new JButton("Submit");
         submitInfo.addActionListener(this);
@@ -68,14 +67,14 @@ public class GUIPetID extends JFrame implements ActionListener, MouseListener{ /
         submitPanel.setLayout(new FlowLayout());
         
         headerPanel.add(instructions);
-        clientPanel.add(fnLabel);
-        clientPanel.add(fnInput);
-        clientPanel.add(lnLabel);
-        clientPanel.add(lnInput);
-        clientPanel.add(petLabel);
-        clientPanel.add(petInput);
-        clientPanel.add(yearLabel);
-        clientPanel.add(yearInput);
+        clientPanel.add(adF);
+        clientPanel.add(f);
+        clientPanel.add(adM);
+        clientPanel.add(m);
+        clientPanel.add(chO);
+        clientPanel.add(o);
+        clientPanel.add(chY);
+        clientPanel.add(y);
         submitPanel.add(submitInfo);
         
         this.add(headerPanel, BorderLayout.NORTH);
@@ -84,30 +83,30 @@ public class GUIPetID extends JFrame implements ActionListener, MouseListener{ /
     }
     
     public void actionPerformed(ActionEvent event){
-        lastName = lnInput.getText();
-        firstName = fnInput.getText();
-        petName = petInput.getText();
-        birthYear = Integer.parseInt(yearInput.getText());
+        female = f.getText();
+        male = m.getText();
+        over = o.getText();
+        under = y.getText();
         
-        if(validateInput()){
+        /*if(validateInput()){
             String petID = idProcessing();
             JOptionPane.showMessageDialog(this, "Your pet's clinic ID is " + petID);
-        }
+        }*/
     }
     
     public void mouseClicked(MouseEvent event){
         
-        if(event.getSource().equals(fnInput))
-            fnInput.setText("");
+        if(event.getSource().equals(f))
+            f.setText("");
 
-        if(event.getSource().equals(lnInput))
-            lnInput.setText("");
+        if(event.getSource().equals(m))
+            m.setText("");
 
-        if(event.getSource().equals(petInput))
-            petInput.setText("");
+        if(event.getSource().equals(o))
+            o.setText("");
 
-        if(event.getSource().equals(yearInput))
-            yearInput.setText("");
+        if(event.getSource().equals(y))
+            y.setText("");
                 
     }
     
@@ -127,13 +126,17 @@ public class GUIPetID extends JFrame implements ActionListener, MouseListener{ /
         
     }
     
+    //we will have to write this so that it stores them in client
+    
     private String idProcessing(){
 
         String petID = new String(String.valueOf(firstName.charAt(0)) + String.valueOf(lastName.charAt(0)) + String.valueOf(petName.charAt(0)) + String.valueOf(birthYear));
         
         return petID;
-    }    
+    }  * 
     
+    
+    //we will have to write this so that the only inputs allowed are integers (or we make it a dropdown menu)
     private boolean validateInput(){
         
         boolean allInputValid = true;
@@ -166,7 +169,7 @@ public class GUIPetID extends JFrame implements ActionListener, MouseListener{ /
     public static void main(String[] args) {
         
         EventQueue.invokeLater(() -> {
-            new GUIPetID().setVisible(true);        
+            new GUI().setVisible(true);        
         });
     }
         
