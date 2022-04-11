@@ -136,6 +136,21 @@ public class Inventory {
     return wantedFood;
   }
   
+  public void close() {
+        
+      //for closing everything after we are done using them
+      try {
+          results.close();
+          dbConnect.close();
+
+      }
+      //catch exception if database cannot be accessed/any sort of errors
+      catch (SQLException e) {
+          e.printStackTrace();
+      }           
+
+    }
+  
   //or if we're going to return String of just the name we can use this
   /*
   public String getItem(int itemID){
