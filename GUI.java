@@ -1,4 +1,5 @@
 //I created a class to handle our gui stuff but I have just copied the one they used for the pet id, so I will change it later
+
 package edu.ucalgary.ensf409;
 
 import java.awt.BorderLayout;
@@ -27,6 +28,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
     private JTextField f;
     private JTextField o;
     private JTextField y;
+
+    private OrderForm currentOrder = new OrderForm();
     
     public GUI(){
         super("Create a Hamper");
@@ -38,7 +41,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
     
     public void setupGUI(){
         
-        instructions = new JLabel("Please enter the number of family members to generate an order. Please enter 0 if no members");
+        instructions = new JLabel("Please enter the number of family members to generate a hamper. Please enter 0 if no members");
         adF = new JLabel("Adult Female:");
         adM = new JLabel("Adult Male:");
         chO = new JLabel("Child Over 8:");
@@ -53,11 +56,23 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
         m.addMouseListener(this);
         o.addMouseListener(this);
         y.addMouseListener(this);
-        
-        JButton submitInfo = new JButton("Submit");
-        submitInfo.addActionListener(this);
 
-        JButton addInfo = new JButton("Add a new order");
+        JButton submitInfo = new JButton(new AbstractAction("Submit") {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                try {
+                    currentOrder.writeToTextFile();
+                } catch (FileNotFoundException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+        });
+        
+        //JButton submitInfo = new JButton("Submit");
+        //submitInfo.addActionListener(this);
+
+        JButton addInfo = new JButton("Add a new hamper");
         addInfo.addActionListener(this);
         
         JPanel headerPanel = new JPanel();
@@ -92,20 +107,36 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
     }
     
     public void actionPerformed(ActionEvent event){
+        try{
         female = Integer.parseInt(f.getText());
         male = Integer.parseInt(m.getText());
         over = Integer.parseInt(o.getText());
         under = Integer.parseInt(y.getText());
+            if(validateInput()){
+                try {
+                    orderProcessor();
+                    //currentOrder.writeToTextFile();
+                } catch (IllegalArgumentException | FileNotFoundException | OrderCannotBeValidatedException e) {
+                    JOptionPane.showMessageDialog(this,"Your order cannot be validated.");
+                    //  Auto-generated catch block
+                    e.printStackTrace();
+                }
+                //JOptionPane.showMessageDialog(this,"Your order is valid ");
+            } 
+        }  
+        catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(this,"Please enter numbers only.");
+        }
         
-        if(validateInput()){
+        /*if(validateInput()){
             try {
                 orderProcessor();
             } catch (IllegalArgumentException | FileNotFoundException e) {
-                // TODO Auto-generated catch block
+                //  Auto-generated catch block
                 e.printStackTrace();
             }
-            JOptionPane.showMessageDialog( this, "Your order is valid ");
-        }
+            JOptionPane.showMessageDialog( this,"Your order is valid ");
+        }*/
     }
     
     public void mouseClicked(MouseEvent event){
@@ -142,8 +173,9 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
     
     //we will have to write this so that it stores them in client
     
-    private void orderProcessor() throws IllegalArgumentException, FileNotFoundException{
-        new OrderForm(female, male, over, under);
+    private void orderProcessor() throws IllegalArgumentException, FileNotFoundException, OrderCannotBeValidatedException{
+        currentOrder.addHamper(female, male, over, under);
+        //new OrderForm(female, male, over, under);
     } 
 
     
