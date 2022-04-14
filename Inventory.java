@@ -1,41 +1,40 @@
-package edu.ucalgary.ensf409
+package edu.ucalgary.ensf409;
 
 import java.sql.*;
+import java.util.HashMap;
 
 public class Inventory {
   //username and password need to be student and ensf409, url is the url for the database we'll use
-  private String URL = "jdbc:mysql://localhost/food_inventory";
+  private final String URL = "jdbc:mysql://localhost/food_inventory";
   private String USERNAME = "student";
-  private String PASSWORD = "ensf409";
+  private String PASSWORD = "ensf";
   
   //need these for connecting and accessing the database
-  private connection dbConnect;
+  private Connection dbConnect;
   private ResultSet results;
   
   //might be easier to use hashmap for the inventory
   //key is an itemID which maps to a Food object
   //this way we can access elements in a map through ID and access the corresponding Food
-  private HashMap<int, NutritionalProfile> inventoryMap = new HashMap<int, NutritionalProfile>();
+  private HashMap<Integer, NutritionalProfile> inventoryMap = new HashMap<Integer, NutritionalProfile>();
   
   //similarly, store the client nutritonal info in a hashmap too??
   //key is the Client ID (1,2,3,4) which maps to nutrtional profile or food or family object?
-  private HashMap<int, NutritionalProfile> clientMap = new HashMap<int, NutritionalProfile>();
+  private HashMap<Integer, NutritionalProfile> clientMap = new HashMap<Integer, NutritionalProfile>();
   
   //private LinkedList<Food> inventoryList = new LinkedList<Food>();
   
-  public Inventory (String url, String user, String password){
+  public Inventory (){
       // Database URL
-      this.URL = url;
-
-      //  Database credentials
-      this.USERNAME = user;
-      this.PASSWORD = password;
+    this.dbConnect = initializeConnection();
+    loadFoodMap();
+    loadClientMap();
   }
   
 
 
 //Must create a connection to the database, no arguments, no return value    
-    public void initializeConnection(){
+    public Connection initializeConnection(){
         //User "student" was created in sql command prompt and given access to database
         //getConnection function was used to connect to database
         //arguements for getConnection were taken from getters
@@ -45,6 +44,7 @@ public class Inventory {
       catch (SQLException e) {
           e.printStackTrace();
       }
+      return dbConnect;
     }
     
     public String getURL(){
@@ -90,6 +90,14 @@ public class Inventory {
             ex.printStackTrace();
     }
   }
+
+  public HashMap<Integer, NutritionalProfile> getFoodMap(){
+      return this.inventoryMap;
+  }
+
+  public HashMap<Integer, NutritionalProfile> getClientMap(){
+    return this.clientMap;
+}
   
   //populate the client map with the infomation about each client's nutri needs
   //store the nutri needs in a food/nutri profile object?
@@ -113,7 +121,7 @@ public class Inventory {
         
         //make a new food object using the values we got for each item as the arguements
         //combine nutri profile and food class?? will make it easier to keep all the info in 1 class
-        NutritionalProfile makeProfile = new NutritionalProfile(itemID, itemName, grainContent, FVContent, proContent, other, calories);
+        NutritionalProfile makeProfile = new NutritionalProfile(clientID, category, grainContent, FVContent, proContent, other, calories);
         //store the food into the hash map where the itemID is the key
         clientMap.put(clientID, makeProfile);
       }
@@ -169,28 +177,5 @@ public class Inventory {
       }           
 
     }
-  
-  //or if we're going to return String of just the name we can use this
-  /*
-  public String getItem(int itemID){
-    Food wantedFood = inventoryMap.get(itemID);
-    String foodName = wantedFood.getName();
-    return foodName;
-  }
-  */
-        
-  /*
-  public remove (String itemID){
-    for (int i = 0; i < inventoryList.size(); i++){
-      if (inventoryList.get(i).getID == itemID)
-        inventoryList.remove(i);
-    }
-  }
-  
-  // ********** Not sure if return is food object or string **********
-  public String getItem (String itemID){
-    for (int i = 0; i < inventoryList.size(); i++){
-      if (inventoryList.get(i).getID == itemID)
-        return inventoryList.get(i);
-    }
-}*/
+
+}
