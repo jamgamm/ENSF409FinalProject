@@ -1,25 +1,34 @@
-package edu.ucalgary.ensf409
+package edu.ucalgary.ensf409;
 
 public class NutritionalProfile {
-  private final int ID;
-  private final String NAME;
+  private int ID;
+  private String NAME;
   private int grainContent;
   private int fvContent;
   private int proContent;
-  private int other;
+  private int otherContent;
   private int calories;
   
-  public NutritionalProfile (int itemID, string itemName, int wholeGrains, int fruitVeggies, int protein, int other, int calories){
+  public NutritionalProfile (int itemID, String itemName, int wholeGrains, int fruitVeggies, int protein, int other, int calories){
     this.ID = itemID;
     this.NAME = itemName;
     this.grainContent = wholeGrains;
     this.fvContent = fruitVeggies;
     this.proContent = protein;
-    this.other = other;
+    this.otherContent = other;
     this.calories = calories;
   }
+
+  public NutritionalProfile (int wholeGrains, int fruitVeggies, int protein, int other, int calories){
+    this.grainContent = wholeGrains;
+    this.fvContent = fruitVeggies;
+    this.proContent = protein;
+    this.otherContent = other;
+    this.calories = calories;
+  }
+
   
-  public String getID(){
+  public int getID(){
     return this.ID;
   }
   
@@ -28,23 +37,28 @@ public class NutritionalProfile {
   }
 
   public int getGrainContent(){
-    return this.grainContent;
+    int grains = (int) ((grainContent/100.0) * calories);
+    return grains;
   }
 
-  public int fvContent(){
-    return this.fvContent;
+  public int getFVContent(){
+    int fv = (int) ((fvContent/100.0) * calories);
+    return fv;
   }
 
-  public int proContent(){
-    return this.proContent;
+  public int getProContent(){
+    int protein = (int) ((proContent/100.0) * calories);
+    return protein;
   }
 
-  public int other(){
-   return this.other;
+  public int getOther(){
+    int other = (int) ((otherContent/100.0) * calories);
+   return other;
   }
 
-  public int calories(){
+  public int getCalories(){
    return this.calories;
   }
- }
 
+
+ }
