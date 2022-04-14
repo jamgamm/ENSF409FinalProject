@@ -1,5 +1,4 @@
 //I created a class to handle our gui stuff but I have just copied the one they used for the pet id, so I will change it later
-
 package edu.ucalgary.ensf409;
 
 import java.awt.BorderLayout;
@@ -13,16 +12,17 @@ import java.util.*;
 
 public class GUI extends JFrame implements ActionListener, MouseListener{ 
 
-    private String female;
-    private String male;
-    private String over;
-    private String under;
+    private int female;
+    private int male;
+    private int over;
+    private int under;
     
     private JLabel adM;
     private JLabel adF;
     private JLabel chO;
     private JLabel chY;
     
+    private JLabel instructions;
     private JTextField m;
     private JTextField f;
     private JTextField o;
@@ -38,7 +38,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
     
     public void setupGUI(){
         
-        instructions = new JLabel("Please enter the number of family members to generate an order.");
+        instructions = new JLabel("Please enter the number of family members to generate an order. Please enter 0 if no members");
         adF = new JLabel("Adult Female:");
         adM = new JLabel("Adult Male:");
         chO = new JLabel("Child Over 8:");
@@ -56,6 +56,9 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
         
         JButton submitInfo = new JButton("Submit");
         submitInfo.addActionListener(this);
+
+        JButton addInfo = new JButton("Add a new order");
+        addInfo.addActionListener(this);
         
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new FlowLayout());
@@ -65,6 +68,9 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
 
         JPanel submitPanel = new JPanel();
         submitPanel.setLayout(new FlowLayout());
+
+        JPanel addInfoPanel = new JPanel();
+        addInfoPanel.setLayout(new FlowLayout());
         
         headerPanel.add(instructions);
         clientPanel.add(adF);
@@ -76,22 +82,30 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
         clientPanel.add(chY);
         clientPanel.add(y);
         submitPanel.add(submitInfo);
+        addInfoPanel.add(addInfo);
         
         this.add(headerPanel, BorderLayout.NORTH);
         this.add(clientPanel, BorderLayout.CENTER);
         this.add(submitPanel, BorderLayout.PAGE_END);
+        //need to change placement because we can't see it on pop up window right now
+        this.add(addInfoPanel, BorderLayout.EAST);
     }
     
     public void actionPerformed(ActionEvent event){
-        female = f.getText();
-        male = m.getText();
-        over = o.getText();
-        under = y.getText();
+        female = Integer.parseInt(f.getText());
+        male = Integer.parseInt(m.getText());
+        over = Integer.parseInt(o.getText());
+        under = Integer.parseInt(y.getText());
         
-        /*if(validateInput()){
-            String petID = idProcessing();
-            JOptionPane.showMessageDialog(this, "Your pet's clinic ID is " + petID);
-        }*/
+        if(validateInput()){
+            try {
+                orderProcessor();
+            } catch (IllegalArgumentException | FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            JOptionPane.showMessageDialog( this, "Your order is valid ");
+        }
     }
     
     public void mouseClicked(MouseEvent event){
@@ -128,12 +142,11 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
     
     //we will have to write this so that it stores them in client
     
-    private String idProcessing(){
+    private void orderProcessor() throws IllegalArgumentException, FileNotFoundException{
+        new OrderForm(female, male, over, under);
+    } 
 
-        String petID = new String(String.valueOf(firstName.charAt(0)) + String.valueOf(lastName.charAt(0)) + String.valueOf(petName.charAt(0)) + String.valueOf(birthYear));
-        
-        return petID;
-    }  * 
+    
     
     
     //we will have to write this so that the only inputs allowed are integers (or we make it a dropdown menu)
@@ -141,24 +154,24 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
         
         boolean allInputValid = true;
         
-        if(!Character.isUpperCase(firstName.charAt(0)) || firstName.length() < 2 || firstName.length() > 26){
+        if(female > 10 || female < 0){
             allInputValid = false;
-            JOptionPane.showMessageDialog(this, firstName + " is an invalid name input.");
+            JOptionPane.showMessageDialog(this, female + " is an invalid input.");
         }
         
-        if(!Character.isUpperCase(lastName.charAt(0)) || lastName.length() < 2 || lastName.length() > 26){
+        if(male > 10 || male < 0){
             allInputValid = false;
-            JOptionPane.showMessageDialog(this, lastName + " is an invalid name input.");
+            JOptionPane.showMessageDialog(this, male + " is an invalid input.");
         }
 
-        if(!Character.isUpperCase(petName.charAt(0)) || petName.length() < 2 || petName.length() > 26){
+        if(under > 10 || under < 0){
             allInputValid = false;
-            JOptionPane.showMessageDialog(this, petName + " is an invalid name input.");
+            JOptionPane.showMessageDialog(this, under + " is an invalid input.");
         }
 
-        if(birthYear < 1922 || birthYear > 2022){
+        if(over > 10 || over < 0){
             allInputValid = false;
-            JOptionPane.showMessageDialog(this, birthYear + " is an invalid birth year. Pets must be born between 1922 and 2022.");
+            JOptionPane.showMessageDialog(this, over + " is an invalid input.");
         }
         
         return allInputValid;
