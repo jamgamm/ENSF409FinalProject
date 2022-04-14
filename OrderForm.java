@@ -1,31 +1,47 @@
 package edu.ucalgary.ensf409;
 
 import java.util.*;
+import java.util.List;
 import java.io.*;
+import java.time.LocalDate;
 
-import javax.swing.*;
-import java.awt.*;
 
 public class OrderForm{
   
+    //request will hold mutiple families
   private ArrayList<Family> request;
+  private Family fam1;
+  private int numOfFamilies = 0;
   private Hamper goodHamper; //I added this private var
+
+  public OrderForm(int female, int male, int over, int under) throws IllegalArgumentException, FileNotFoundException{
+      //this is just for 1 family
+      //maybe for multiple families use for loop?
+        this.fam1 = new Family(male, female, over, under);
+        this.goodHamper = fam1.getHamper();
+        //request.add(fam1);
+        numOfFamilies++;
+        writeToTextFile();
+  }
+
+  public Family getFamily(){
+    return fam1;
+  }
   
-  public void writeToTextFile() throws FileIOException{
+  public void writeToTextFile() throws FileNotFoundException{
     //an example of the final output: https://d2l.ucalgary.ca/d2l/le/content/425075/viewContent/5235566/View 
+    //List<Client> ourFood = hamper1.getHamperProfile();
+    Order order1 = goodHamper.getOrder();
+    List<NutritionalProfile> best = order1.getBestCombo();
     try {
-      FileWriter out = new FileWriter();
-      out.write("Name: " + "\t\n" + "Date: " + "\t\n" + "Original Request" + "\n");
-      for(i=1; i<; i++){ //I'm not sure what the loop criteria should be (it's for the requested hampers)
-         out.write("Hamper " + i + ":")
-         out.write(the clients)//fix
-       }
+      FileWriter out = new FileWriter("output.txt");
+      int[] members = fam1.getFamilyMembers();
+      String familyMembers = new String(members[0]+"male, "+members[1]+"female, "+members[2]+"child above 8, "+members[3]+"child below 8");
+      out.write("Name: " + "\t\n" + "Date: " + LocalDate.now() + "\t\n" + "Original Request: " + familyMembers + "\n");
+      for(int i =0; i<best.size(); i++){
+        out.write("ID: " + best.get(i).getID()+ " Name: "+ best.get(i).getName()+"\n");
+      }
             
-       for(i=1; i<; i++){ //I'm not sure what the loop criteria should be (for the final hampers -- with the food)
-         out.write("Hamper " + i + " Items:")
-         out.write(hamper)//fix and output each item + its id -- might need to iterate
-           //I might need to write a second loop for each item of each hamper (nested for loops)
-       }     
             
        out.close();
        }
@@ -39,52 +55,7 @@ public class OrderForm{
             System.err.println("Exception: " + e.getStackTrace()); //throws if there is some other exception
         }
   }
-  
-  public static void getUserInput(String args[]) throws IllegalArgumentException{ //I think we need to add this exception to the UML
-    //we also need to figure out the gui stuff I think for this (I'm not sure how to connect the user input)
-    //I'm not sure if we would even need this if we are doing the gui stuff
-    //I might add a gui class because it might just be a bit easier
-    
-    /*
-
-        EventQueue.invokeLater(() -> {
-            JFrame frame = new JFrame("My First Frame");
-            frame.setSize(400, 400);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            
-            JPanel buttonsPanel = new JPanel();
-            JButton myButton = new JButton("Click here!");
-            buttonsPanel.add(myButton);
-            frame.getContentPane().add(BorderLayout.NORTH, buttonsPanel);
-            frame.setVisible(true);
-        });
-
-    }
-    
-    /*
-Copyright Ann Barcomb and Emily Marasco, 2021
-Licensed under GPL v3
-See LICENSE.txt for more information.
-*/
 
             
            
-    }
-}
-}*/
-    try{
-      String 
-    }
-    catch(){
-    }
-    
-  }
-  
-  public boolean checkValid(Hamper finalHamper) throws IllegalArgumentException{
-    if(finalHamper){ //finish writing criteria
-      this.goodHamper = finalHamper;
-      return true;
-  } 
-    else{ return false;}
-
 }
