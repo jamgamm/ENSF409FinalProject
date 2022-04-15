@@ -7,19 +7,19 @@ public class Hamper {
   private List<List<NutritionalProfile>> possible = new ArrayList<List<NutritionalProfile>>();
   private List<Client> hamperProfile = new ArrayList<Client>();
   private Inventory foodInventory = new Inventory();
-    private HashMap<Integer, NutritionalProfile> foodMap = foodInventory.getFoodMap();
-    private Order theOrder = new Order(this);
-    private int numOfHampers = 0;
+  private HashMap<Integer, NutritionalProfile> foodMap = foodInventory.getFoodMap();
+  private Order theOrder = new Order(this);
   
-  public Hamper(Client familyNeeds) throws IllegalArgumentException{
+  public Hamper(Client familyNeeds) throws IllegalArgumentException, OrderCannotBeValidatedException{
     this.nutritionalNeedsFamily = familyNeeds;
-    System.out.println("Family grains: " + nutritionalNeedsFamily.getGrainContent());
+    /*System.out.println("Family grains: " + nutritionalNeedsFamily.getGrainContent());
     System.out.println("Family FV: " + nutritionalNeedsFamily.getFVContent());
     System.out.println("Family Protein: " + nutritionalNeedsFamily.getProContent());
     System.out.println("Family Other: " + nutritionalNeedsFamily.getOther());
-    System.out.println("Family calories: "+ nutritionalNeedsFamily.getCalories());
+    System.out.println("Family calories: "+ nutritionalNeedsFamily.getCalories());*/
     this.possible = buildHamper();
     theOrder.bestCombo(hamperProfile);
+    foodInventory.close();
   }
 
   
@@ -29,7 +29,7 @@ public class Hamper {
       List<NutritionalProfile> generated = create(nutritionalNeedsFamily, j);
       possible.add(generated);
     }
-    System.out.println(numOfHampers);
+    //System.out.println(numOfHampers);
     //generated = trimRepeats(generated);
     return possible;
   }
@@ -37,16 +37,17 @@ public class Hamper {
 
   public List<NutritionalProfile> create(Client familyNeeds, int j){
     List<NutritionalProfile> ourFood = new ArrayList<NutritionalProfile>();
-    j+=5;
     int totalGrain = 0;
     int totalFV = 0;
     int totalPro = 0;
     int totalOther = 0;
     int totalCal = 0;
-    numOfHampers++;
     HashMap<Integer, NutritionalProfile> foodInven = foodMap;
 
     for(int i = j; i<foodInven.size(); i++){
+      if(foodInven.get(i) == null){
+        continue;
+      }
       if(foodInven.get(i).getGrainContent() != 0){
         ourFood.add(foodInven.get(i));
         totalGrain += foodInven.get(i).getGrainContent();
@@ -62,6 +63,9 @@ public class Hamper {
     //System.out.println("Current grain:"+totalGrain);
 
     for(int i = j; i<foodInven.size(); i++){
+      if(foodInven.get(i) == null){
+        continue;
+      }
       if(totalFV>nutritionalNeedsFamily.getFVContent()){
         break;
       }
@@ -75,6 +79,9 @@ public class Hamper {
     }
     //System.out.println("Current FV:"+totalFV);
     for(int i = j; i<foodInven.size(); i++){
+      if(foodInven.get(i) == null){
+        continue;
+      }
       if(totalPro>nutritionalNeedsFamily.getProContent()){
         break;
       }
@@ -89,6 +96,9 @@ public class Hamper {
     }
     //System.out.println("Current Protien:"+totalPro);
     for(int i = j; i<foodInven.size(); i++){
+      if(foodInven.get(i) == null){
+        continue;
+      }
       if(totalOther>nutritionalNeedsFamily.getOther()){
         break;
       }
@@ -125,11 +135,6 @@ public class Hamper {
     return nutritionalNeedsFamily;
   }
   
-  public void setNutritionalNeedsFamily(Client nutritionalNeedsFamily){
-    this.nutritionalNeedsFamily = nutritionalNeedsFamily;
-  }
-
-
 
   public List<Client> getHamperProfile(){
       return hamperProfile;
@@ -141,6 +146,10 @@ public class Hamper {
 
   public Order getOrder(){
     return theOrder;
+  }
+
+  public Inventory getInventory(){
+    return foodInventory;
   }
 
 }
