@@ -4,18 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-  //public LinkedList[] hamperList;
   private Hamper myHamper;
   private List<NutritionalProfile> theCombo = new ArrayList<NutritionalProfile>();
   private Client bestHamper = new Client();
+  private int excess = 0;
   
   public Order(Hamper theHamper){
     this.myHamper = theHamper;
-  //might need a family object
   
   }
   
-  public void bestCombo(List<Client> generated){
+  public void bestCombo(List<Client> generated) throws OrderCannotBeValidatedException{
 
     int bestIndex = 0;
     int bestCalories = generated.get(0).getCalories();
@@ -38,14 +37,17 @@ public class Order {
         bestIndex = i;
       }
     }
-    System.out.println(bestCalories- myHamper.getNutritionalNeedsFamily().getCalories());
+    excess = bestCalories- myHamper.getNutritionalNeedsFamily().getCalories();
 
     this.bestHamper = myHamper.getHamperProfile().get(bestIndex);
     this.theCombo = myHamper.getPossible().get(bestIndex);
-
-
-
+    if(bestHamper.getCalories()<myHamper.getNutritionalNeedsFamily().getCalories()){
+      throw new OrderCannotBeValidatedException();
+    }
+    updateInventory();
   }
+
+
 
   public List<NutritionalProfile> getBestCombo(){
     return theCombo;
@@ -53,5 +55,16 @@ public class Order {
 
   public Client getBestHamper(){
     return bestHamper;
+  }
+
+  public void updateInventory(){
+    for(int i = 0; i<theCombo.size(); i++){
+      Inventory update = myHamper.getInventory();
+      update.remove(theCombo.get(i).getID());
+    }
+  }
+
+  public int getExcess(){
+    return excess;
   }
 }
