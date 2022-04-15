@@ -32,20 +32,35 @@ public enum NutritionalProfileClient{
   
     CHILDABOVE {
         public int[] theProfile() {
-            int[] profile = {462, 726, 682, 330, 2200};
+            NutritionalProfile theInfo = ourInven.getClientMap().get(3);
+            int grains = theInfo.getGrainContent();
+            int fv = theInfo.getFVContent();
+            int protein = theInfo.getProContent();
+            int other = theInfo.getOther();
+            int calories = theInfo.getCalories();
+            int[] profile = {grains, fv, protein, other, calories};
+            //int[] profile = {462, 726, 682, 330, 2200};
             return profile;
-            //return new NutritionalProfile(3, "Child Over 8", 462, 726, 682, 330, 2200);
+
         }
     },
   
     CHILDBELOW {
         public int[]theProfile() {
-            int[] profile = {294, 462, 434, 210, 1400};
+            NutritionalProfile theInfo = ourInven.getClientMap().get(4);
+            int grains = theInfo.getGrainContent();
+            int fv = theInfo.getFVContent();
+            int protein = theInfo.getProContent();
+            int other = theInfo.getOther();
+            int calories = theInfo.getCalories();
+            int[] profile = {grains, fv, protein, other, calories};
+            //int[] profile = {294, 462, 434, 210, 1400};
             return profile;
-            //return new NutritionalProfile(4, "Child Under 8", 294, 462, 434, 210, 1400);
+
         }
     
     };
     public abstract int[] theProfile();
     Inventory ourInven = new Inventory();
 }
+
