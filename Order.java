@@ -32,6 +32,8 @@ public class Order {
    * Method that checks for several hamper combinations and selects the best
    * @param generated - a List of Client objects
    * @returns void
+   * @exception OrderCannotValidatedException thrown whenever an order cannot be made
+   * @see OrderCannotBeValidatedException
    */
   public void bestCombo(List<Client> generated) throws OrderCannotBeValidatedException{
 
