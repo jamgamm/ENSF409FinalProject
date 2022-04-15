@@ -2,21 +2,21 @@ package edu.ucalgary.ensf409;
 
 import org.junit.*;
 import static org.junit.Assert.*;
+
+import java.beans.Transient;
 import java.io.*;
 import java.util.*;
 //any other libraries we need to import
 
 public class Tests {
-  //private Client sampleClient = new Client(400, 700, 650, 750, 2500);
   private Hamper sampleHamper = null;
   private Family sampleFamily = null;
   private Client sampleClient = new Client(0, "Adult male", 0, 0, 0, 0, 0);
   private NutritionalProfile sampleProfile = new NutritionalProfile(0,0,0,0,0);
-  private Hamper badHamper = null;
-  private NutritionalProfile testFood = new NutritionalProfile(1, "Banana", 0, 100, 0, 0, 100);
-  //private Inventory sampleInventory = new Inventory();
+  private List<Client> possibleHampers = new ArrayList<Client>();
   private Order sampleOrder = null;
-  
+  private List<List<NutritionalProfile>> sampleFoodList= new ArrayList<List<NutritionalProfile>>();
+  private List<NutritionalProfile> sampleFoodCombo = new ArrayList<NutritionalProfile>();
   /* this section is for testing the methods in the family class 
   the first 4 tests under this comment are all for testing methods in family class */
   
@@ -42,10 +42,16 @@ public class Tests {
   public void testFamilyGetters(){
     //test getters in family class
     sampleFamily = new Family(1,0,0,0);
-    int sampleGetMembers = sampleFamily.getFamilyMembers()[0];
-    int expectedMembers = 1;
-    assertNotNull("Method getFamilyMembers did not return an int array", sampleGetMembers);
-    assertEquals("Method getFamilyMembers did not return the expected result: ", expectedMembers, sampleGetMembers);
+    int[] actualMembers = sampleFamily.getFamilyMembers();
+    int[] expectedMembers = {1,0,0,0};
+    boolean equal = true;
+    for(int i = 0; i<expectedMembers.length; i++){
+      if(actualMembers[i]!=expectedMembers[i]){
+        equal = false;
+      }
+    }
+    assertNotNull("Method getFamilyMembers did not return an int array", actualMembers);
+    assertTrue("Method findBestCombo did not return the expected result", equal);
   }
   
   @Test
@@ -54,10 +60,16 @@ public class Tests {
     sampleFamily = new Family(1,0,0,0);
     sampleClient = new Client(400, 700, 650, 750, 2500);
     sampleFamily.setWeeklyFamilyNutritionalNeeds(sampleClient);
-    Client sampleCalculation = sampleFamily.getWeeklyFamilyNutritionalNeeds();
-    int sample = sampleCalculation.getGrainContent();
-    int expectedCalculation = 400;
-    assertEquals("Method calculateWeeklyFamilyNutritionalNeeds did not return the expected result: ", expectedCalculation, sample);
+    Client actualCalculation = sampleFamily.getWeeklyFamilyNutritionalNeeds();
+    int[] actualCalculationValues = {actualCalculation.getGrainContent(),actualCalculation.getFVContent(),actualCalculation.getProContent(),actualCalculation.getOther(),actualCalculation.getCalories()};
+    int[] expectedCalculation = {400,700,650,750,2500};
+    boolean equal = true;
+    for(int i = 0; i<expectedCalculation.length; i++){
+      if(actualCalculationValues[i]!=expectedCalculation[i]){
+        equal = false;
+      }
+    }
+    assertTrue("Method findBestCombo did not return the expected result", equal);
   }
 
   /* this section is for testing the methods related to the client class */
@@ -71,9 +83,9 @@ public class Tests {
   @Test
   public void testClientGetters(){
     //test the getters for the client class
-    String sampleCategory = sampleClient.getName();
+    String actualCategory = sampleClient.getName();
     String expectedCategory = "Adult male";
-    assertEquals("Method getCategory did not return the expected result: ", expectedCategory, sampleCategory);
+    assertEquals("Method getCategory did not return the expected result: ", expectedCategory, actualCategory);
   }
 
   /* this section is for testing the methods related to the Nutritional Profile class */
@@ -88,21 +100,21 @@ public class Tests {
   public void testProfileGetters(){
     //test the getters for the nutritional profile class
     sampleProfile = new NutritionalProfile(0,80,10,10,120);
-    int sampleGrains = sampleProfile.getGrainContent();
+    int actualGrains = sampleProfile.getGrainContent();
     int expectedGrains = 0;
-    assertEquals("Method getGrainContent did not return the expected result: ", expectedGrains, sampleGrains);
-    int sampleFV = sampleProfile.getFVContent();
+    assertEquals("Method getGrainContent did not return the expected result: ", expectedGrains, actualGrains);
+    int actualFV = sampleProfile.getFVContent();
     int expectedFV = 96;
-    assertEquals("Method getFVContent did not return the expected result: ", expectedFV, sampleFV);
-    int samplePro = sampleProfile.getProContent();
+    assertEquals("Method getFVContent did not return the expected result: ", expectedFV, actualFV);
+    int actualPro = sampleProfile.getProContent();
     int expectedPro = 12;
-    assertEquals("Method getProContent did not return the expected result: ", expectedPro, samplePro);
-    int sampleOther = sampleProfile.getOther();
+    assertEquals("Method getProContent did not return the expected result: ", expectedPro, actualPro);
+    int actualOther = sampleProfile.getOther();
     int expectedOther = 12;
-    assertEquals("Method getOther did not return the expected result: ", expectedOther, sampleOther);
-    int sampleCalories = sampleProfile.getCalories();
+    assertEquals("Method getOther did not return the expected result: ", expectedOther, actualOther);
+    int actualCalories = sampleProfile.getCalories();
     int expectedCalories = 120;
-    assertEquals("Method getCalories did not return the expected result: ", expectedCalories, sampleCalories);
+    assertEquals("Method getCalories did not return the expected result: ", expectedCalories, actualCalories);
   }
   
   
@@ -156,14 +168,100 @@ public class Tests {
     
   @Test
   public void testFindBestCombo(){
-    sampleClient = new Client(2741, 700, 650, 750, 2500);
+    sampleProfile = new NutritionalProfile(67, "Banana, bunch 5", 0, 4054, 0, 4642, 7000);
+    sampleFoodCombo.add(sampleProfile);
+    sampleProfile = new NutritionalProfile(62, "Salmon, 5 filets", 2741, 0, 3644, 0, 7000);
+    sampleFoodCombo.add(sampleProfile);
+    sampleFoodList.add(sampleFoodCombo);
+
+    sampleFoodCombo.clear();
+    sampleProfile = new NutritionalProfile(12, "Celariac, 1 kg", 2000, 400, 350, 1250, 2500);
+    sampleFoodCombo.add(sampleProfile);
+    sampleFoodList.add(sampleFoodCombo);
+
+    sampleFoodCombo.clear();
+    sampleProfile = new NutritionalProfile(12, "Celariac, 1 kg", 2899, 5500, 3700, 4848, 16947);
+    sampleFoodCombo.add(sampleProfile);
+    sampleFoodList.add(sampleFoodCombo);
+
+    sampleClient = new Client(2741, 4054, 3644, 4642, 14000);
+    possibleHampers.add(sampleClient);
+    sampleClient = new Client(2000, 400, 350, 1250, 2500);
+    possibleHampers.add(sampleClient);
+    sampleClient = new Client(2899, 5500, 3700, 4848, 16947);
+    possibleHampers.add(sampleClient);
+
+
     sampleHamper = new Hamper(sampleClient);
     sampleOrder = new Order(sampleHamper);
-    sampleOrder.setBestHamper(sampleClient);
-    Client sampleBestCombo = sampleOrder.getBestHamper();
-    int bestCombo = sampleBestCombo.getGrainContent();
-    int expectedBestCombo = 2741;
-    assertEquals("Method findBestCombo did not return the expected result: ", expectedBestCombo, bestCombo);
+    sampleHamper.setHamperProfile(possibleHampers);
+    sampleHamper.setPossible(sampleFoodList);
+
+    try{
+      sampleOrder.bestCombo(possibleHampers);
+    }
+    catch(OrderCannotBeValidatedException e){
+
+    }
+    Client actualBestCombo = sampleOrder.getBestHamper();
+    int[] actualBestComboValues = {actualBestCombo.getGrainContent(), actualBestCombo.getFVContent(),actualBestCombo.getProContent(),actualBestCombo.getOther(),actualBestCombo.getCalories()};
+    int[] expectedBestComboValues = {2741,4054,3644,4642,14000};
+    boolean equal = true;
+    for(int i=0; i<expectedBestComboValues.length; i++){
+      if(actualBestComboValues[i]!=expectedBestComboValues[i]){
+        equal = false;
+      }
+    }
+    assertTrue("Method findBestCombo did not return the expected result", equal);
+    //assertEquals("Method findBestCombo did not return the expected result: ", expectedBestCombo, bestCombo);
+  }
+
+  @Test
+  public void testFindBestComboItems(){
+    sampleProfile = new NutritionalProfile(67, "Banana, bunch 5", 0, 4054, 0, 4642, 7000);
+    sampleFoodCombo.add(sampleProfile);
+    sampleProfile = new NutritionalProfile(62, "Salmon, 5 filets", 2741, 0, 3644, 0, 7000);
+    sampleFoodCombo.add(sampleProfile);
+    sampleFoodList.add(sampleFoodCombo);
+
+    sampleFoodCombo.clear();
+    sampleProfile = new NutritionalProfile(12, "Celariac, 1 kg", 2000, 400, 350, 1250, 2500);
+    sampleFoodCombo.add(sampleProfile);
+    sampleFoodList.add(sampleFoodCombo);
+
+    sampleFoodCombo.clear();
+    sampleProfile = new NutritionalProfile(12, "Celariac, 1 kg", 2899, 5500, 3700, 4848, 16947);
+    sampleFoodCombo.add(sampleProfile);
+    sampleFoodList.add(sampleFoodCombo);
+
+    sampleClient = new Client(2741, 4054, 3644, 4642, 14000);
+    possibleHampers.add(sampleClient);
+    sampleClient = new Client(2000, 400, 350, 1250, 2500);
+    possibleHampers.add(sampleClient);
+    sampleClient = new Client(2899, 5500, 3700, 4848, 16947);
+    possibleHampers.add(sampleClient);
+
+
+    sampleHamper = new Hamper(sampleClient);
+    sampleOrder = new Order(sampleHamper);
+    sampleHamper.setHamperProfile(possibleHampers);
+    sampleHamper.setPossible(sampleFoodList);
+
+    try{
+      sampleOrder.bestCombo(possibleHampers);
+    }
+    catch(OrderCannotBeValidatedException e){
+
+    }
+    List<NutritionalProfile> actualFoods = sampleOrder.getBestCombo();
+    List<NutritionalProfile> expectedFoods = sampleFoodList.get(0);
+    boolean equal = true;
+    for(int i=0; i<expectedFoods.size(); i++){
+      if(actualFoods.get(i).getName()!=expectedFoods.get(i).getName()){
+        equal = false;
+      }
+    }
+    assertTrue("Method findBestCombo did not return the expected result", equal);
   }
     
   /* this section will test the exceptions for various methods */
@@ -201,6 +299,7 @@ public class Tests {
 
     
 }
+
     
     
   
