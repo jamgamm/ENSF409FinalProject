@@ -44,7 +44,7 @@ public class Order {
     if(bestHamper.getCalories()<myHamper.getNutritionalNeedsFamily().getCalories()){
       throw new OrderCannotBeValidatedException();
     }
-    updateInventory();
+    //updateInventory();
   }
 
 
@@ -53,15 +53,20 @@ public class Order {
     return theCombo;
   }
 
+  public void setBestHamper(Client best){
+    this.bestHamper = best;
+  }
+
   public Client getBestHamper(){
     return bestHamper;
   }
 
   public void updateInventory(){
+    Inventory update = new Inventory();
     for(int i = 0; i<theCombo.size(); i++){
-      Inventory update = myHamper.getInventory();
       update.remove(theCombo.get(i).getID());
     }
+    update.close();
   }
 
   public int getExcess(){
