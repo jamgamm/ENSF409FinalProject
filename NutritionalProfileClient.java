@@ -1,5 +1,12 @@
 package edu.ucalgary.ensf409;
 
+/**
+ * 
+ * @author Jana Afifi, Amneet Deol, Jam Ivy Gammuac, Shanelle Li Chit Khim
+ * @version 1.3
+ * @since 1.0 
+ */
+
 public enum NutritionalProfileClient{
   
   ADULTMALE {
