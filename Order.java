@@ -3,17 +3,36 @@ package edu.ucalgary.ensf409;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A program that instantiates an Order object
+ * @author Jana Afifi, Amneet Deol, Jam Ivy Gammuac, Shanelle Li Chit Khim
+ * @version 1.3
+ * @since 1.0 
+ */
+
 public class Order {
   private Hamper myHamper;
   private List<NutritionalProfile> theCombo = new ArrayList<NutritionalProfile>();
   private Client bestHamper = new Client();
   private int excess = 0;
   
+  /** Constructor **/
+  
+  /** 
+   * @param theHamper - a hamper object that contains 
+   */
   public Order(Hamper theHamper){
     this.myHamper = theHamper;
   
   }
   
+  /** Helper methods **/
+  
+  /** 
+   * Method that checks for several hamper combinations and selects the best
+   * @param generated - a List of Client objects
+   * @returns void
+   */
   public void bestCombo(List<Client> generated) throws OrderCannotBeValidatedException{
 
     int bestIndex = 0;
@@ -47,20 +66,12 @@ public class Order {
     //updateInventory();
   }
 
-
-
-  public List<NutritionalProfile> getBestCombo(){
-    return theCombo;
-  }
-
-  public void setBestHamper(Client best){
-    this.bestHamper = best;
-  }
-
-  public Client getBestHamper(){
-    return bestHamper;
-  }
-
+  /** 
+   * Method to update the inventory, i.e, remove the items that were chosen in the
+   * best hamper combination
+   * @param null
+   * @returns void
+   */
   public void updateInventory(){
     Inventory update = new Inventory();
     for(int i = 0; i<theCombo.size(); i++){
@@ -68,8 +79,35 @@ public class Order {
     }
     update.close();
   }
+  
+  /** Getters and Setters **/
+  
+  /** 
+   * @return List<NutritionalProfile> - returns a combination of food
+   * which is stored as a List of NutritionalProfile object
+   */
+  public List<NutritionalProfile> getBestCombo(){
+    return theCombo;
+  }
 
+  /** 
+   * @param best - sets the best 
+   */
+  public void setBestHamper(Client best){
+    this.bestHamper = best;
+  }
+
+  /** 
+   * @return Client - returns a 
+   */
+  public Client getBestHamper(){
+    return bestHamper;
+  }
+  
+  /** 
+   * @return int - returns the excess amount of calories between the hamper's and required amount
+   */
   public int getExcess(){
     return excess;
   }
-}
+} // End of class declaration
