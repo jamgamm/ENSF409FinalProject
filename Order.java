@@ -29,9 +29,11 @@ public class Order {
   /** Helper methods **/
   
   /** 
-   * Method that checks for several hamper combinations and selects the best
+   * Method that checks for several hamper combinations and selects the best by
+   * calculating the excess calories (take actual requirement amount - total calories
+   * in current hamper), the program then keeps track of the smallest excess
+   * the hamper with the smallest excess is then chosen as the best hamper
    * @param generated - a List of Client objects
-   * @returns void
    * @exception OrderCannotValidatedException thrown whenever an order cannot be made
    * @see OrderCannotBeValidatedException
    */
@@ -69,10 +71,8 @@ public class Order {
   }
 
   /** 
-   * Method to update the inventory, i.e, remove the items that were chosen in the
-   * best hamper combination
-   * @param null
-   * @returns void
+   * Method to update the inventory, i.e, the program iterates through the list
+   * of food in the best hamper combination and removes the items sequentially
    */
   public void updateInventory(){
     Inventory update = new Inventory();
@@ -85,7 +85,7 @@ public class Order {
   /** Getters and Setters **/
   
   /** 
-   * @return List<NutritionalProfile> - returns a combination of food
+   * @return List<NutritionalProfile> - returns best combination of food
    * which is stored as a List of NutritionalProfile object
    */
   public List<NutritionalProfile> getBestCombo(){
@@ -93,14 +93,15 @@ public class Order {
   }
 
   /** 
-   * @param best - sets the best 
+   * @param best - sets the bestHamper variable to the 
+   * best hamper combination found by calculation
    */
   public void setBestHamper(Client best){
     this.bestHamper = best;
   }
 
   /** 
-   * @return Client - returns a 
+   * @return Client - returns the bestHamper variable
    */
   public Client getBestHamper(){
     return bestHamper;
