@@ -6,43 +6,44 @@ public class Hamper {
   private Client nutritionalNeedsFamily;
   private List<List<NutritionalProfile>> possible = new ArrayList<List<NutritionalProfile>>();
   private List<Client> hamperProfile = new ArrayList<Client>();
-  private Inventory foodInventory = new Inventory();
-  private HashMap<Integer, NutritionalProfile> foodMap = foodInventory.getFoodMap();
   private Order theOrder = new Order(this);
   
-  public Hamper(Client familyNeeds) throws IllegalArgumentException, OrderCannotBeValidatedException{
+  public Hamper(Client familyNeeds) throws IllegalArgumentException{
     this.nutritionalNeedsFamily = familyNeeds;
     /*System.out.println("Family grains: " + nutritionalNeedsFamily.getGrainContent());
     System.out.println("Family FV: " + nutritionalNeedsFamily.getFVContent());
     System.out.println("Family Protein: " + nutritionalNeedsFamily.getProContent());
     System.out.println("Family Other: " + nutritionalNeedsFamily.getOther());
     System.out.println("Family calories: "+ nutritionalNeedsFamily.getCalories());*/
-    this.possible = buildHamper();
-    theOrder.bestCombo(hamperProfile);
-    foodInventory.close();
+    //this.possible = buildHamper();
+    //theOrder.bestCombo(hamperProfile);
   }
 
   
-  public List<List<NutritionalProfile>> buildHamper(){
+  public void buildHamper() throws OrderCannotBeValidatedException{
     System.out.println("making hampers...");
+    Inventory foodInventory = new Inventory();
     for(int j = 1; j<1001; j++){
-      List<NutritionalProfile> generated = create(nutritionalNeedsFamily, j);
+      List<NutritionalProfile> generated = create(nutritionalNeedsFamily, j,foodInventory);
       possible.add(generated);
     }
     //System.out.println(numOfHampers);
-    //generated = trimRepeats(generated);
-    return possible;
+    foodInventory.close();
+    theOrder.bestCombo(hamperProfile);
+    theOrder.updateInventory();
+    //return possible;
+    //List<List<NutritionalProfile>>
   }
   
 
-  public List<NutritionalProfile> create(Client familyNeeds, int j){
+  public List<NutritionalProfile> create(Client familyNeeds, int j, Inventory foodInventory){
     List<NutritionalProfile> ourFood = new ArrayList<NutritionalProfile>();
     int totalGrain = 0;
     int totalFV = 0;
     int totalPro = 0;
     int totalOther = 0;
     int totalCal = 0;
-    HashMap<Integer, NutritionalProfile> foodInven = foodMap;
+    HashMap<Integer, NutritionalProfile> foodInven = foodInventory.getFoodMap();
 
     for(int i = j; i<foodInven.size(); i++){
       if(foodInven.get(i) == null){
@@ -140,16 +141,20 @@ public class Hamper {
       return hamperProfile;
   }
 
+  public void setHamperProfile(List<Client> profile){
+    this.hamperProfile = profile;
+  }
+
   public List<List<NutritionalProfile>> getPossible(){
     return possible;
   }
 
-  public Order getOrder(){
-    return theOrder;
+  public void setPossible(List<List<NutritionalProfile>> givenPossible){
+    this.possible = givenPossible;
   }
 
-  public Inventory getInventory(){
-    return foodInventory;
+  public Order getOrder(){
+    return theOrder;
   }
 
 }
