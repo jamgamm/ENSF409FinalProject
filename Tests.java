@@ -265,7 +265,43 @@ public class Tests {
   }
     
   /* this section will test the exceptions for various methods */
-    
+  
+    @Test
+  public void testCannotBeValidated(){
+    sampleProfile = new NutritionalProfile(67, "Banana, bunch 5", 0, 100, 0, 120, 300);
+    sampleFoodCombo.add(sampleProfile);
+    sampleProfile = new NutritionalProfile(62, "Salmon, 5 filets", 170, 0, 320, 0, 300);
+    sampleFoodCombo.add(sampleProfile);
+    sampleFoodList.add(sampleFoodCombo);
+
+    sampleFoodCombo.clear();
+    sampleProfile = new NutritionalProfile(12, "Celariac, 1 kg", 2000, 400, 350, 1250, 2500);
+    sampleFoodCombo.add(sampleProfile);
+    sampleFoodList.add(sampleFoodCombo);
+
+    sampleClient = new Client(170, 100, 320, 120, 600);
+    possibleHampers.add(sampleClient);
+    sampleClient = new Client(2000, 400, 350, 1250, 2500);
+    possibleHampers.add(sampleClient);
+
+
+
+    sampleHamper = new Hamper(sampleClient);
+    sampleOrder = new Order(sampleHamper);
+    sampleHamper.setHamperProfile(possibleHampers);
+    sampleHamper.setPossible(sampleFoodList);
+
+    boolean passed = false;
+    try{
+      sampleOrder.bestCombo(possibleHampers);
+    }
+    catch(OrderCannotBeValidatedException e){
+      passed = true;
+    }
+
+    assertTrue("Method findBestCombo does not throw an OrderCannotBeValiedException when hamper does not meet requirements", passed);
+  }
+  
   @Test
   public void testFamilyConstructorException(){
     boolean passed = true;
