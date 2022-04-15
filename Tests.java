@@ -321,8 +321,15 @@ public class Tests {
   @Test
   public void testClientConstructorException(){
     //test that an illegal arguement exception is thrown when invalid data is given
-    
-    boolean passed = true;
+    boolean passed = false;
+    try{
+      Client badClient = new Client(1, 12, Integer.parseInt("six"),400,2500);
+    }
+    catch(IllegalArgumentException e){
+        passed = true;
+    }
+    assertTrue("Client constructor does not throw IllegalArgumentException when given invalid data", passed);
+    passed = true;
      try{
       new Client(1,"Adult male",16,28,26,30,2500);
     }
@@ -333,7 +340,28 @@ public class Tests {
         assertTrue("Client constructor throws IllegalArgumentException when given valid data", passed);
   } 
 
-    
+  @Test
+  public void testHamperConstructorException(){
+    boolean passed = false;
+    try{
+      Client badClient = new Client(1, 12, Integer.parseInt("six"),400,2500);
+      new Hamper(badClient);
+    }
+    catch(IllegalArgumentException e){
+        passed = true;
+    }
+    assertTrue("Hamper constructor does not throw IllegalArgumentException when given invalid data", passed);
+    passed = true;
+     try{
+      Client goodClient = new Client(1,"Adult male",16,28,26,30,2500);
+      new Hamper(goodClient);
+    }
+    catch (IllegalArgumentException e){
+      passed = false;
+    }
+    catch (Exception e) { }
+        assertTrue("Hamper constructor throws IllegalArgumentException when given valid data", passed);
+  }
 }
 
     
