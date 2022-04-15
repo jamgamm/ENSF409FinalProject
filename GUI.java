@@ -1,5 +1,3 @@
-//I created a class to handle our gui stuff but I have just copied the one they used for the pet id, so I will change it later
-
 package edu.ucalgary.ensf409;
 
 import java.awt.BorderLayout;
@@ -24,24 +22,31 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
     private JLabel chY;
     
     private JLabel instructions;
+    private JLabel instructions2;
+    private JLabel instructions3;
     private JTextField m;
     private JTextField f;
     private JTextField o;
     private JTextField y;
 
     private OrderForm currentOrder = new OrderForm();
+    private int orderNumber = 0;
+    private String mobility = "No";
+    private int numOfHampers = 0;
     
     public GUI(){
         super("Create a Hamper");
         setupGUI();
-        setSize(500,300);
+        setSize(800,300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
         
     }
     
     public void setupGUI(){
         
-        instructions = new JLabel("Please enter the number of family members to generate a hamper. Please enter 0 if no members");
+        instructions = new JLabel("Please enter the number of family members to generate a hamper. Please enter 0 if no members.");
+        instructions2 = new JLabel("If mobility is needed, click the mobility button. To add a hamper to an order, click Add Hamper to Order.");
+        instructions3 = new JLabel("Once you are satisfied with your order, press the submit button");
         adF = new JLabel("Adult Female:");
         adM = new JLabel("Adult Male:");
         chO = new JLabel("Child Over 8:");
@@ -61,22 +66,33 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
             @Override
             public void actionPerformed(ActionEvent e){
                 try {
-                    currentOrder.writeToTextFile();
+                    orderNumber++;
+                    currentOrder.writeToTextFile(orderNumber, mobility);
+                    currentOrder = new OrderForm();
+                    numOfHampers = 0;
+                    JOptionPane.showMessageDialog(null,"Order complete. Order Form file created.");
                 } catch (FileNotFoundException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
             }
         });
+
+        JButton mobilityInfo = new JButton(new AbstractAction("Mobility") {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                mobility = "Yes";
+            }
+        });
         
         //JButton submitInfo = new JButton("Submit");
         //submitInfo.addActionListener(this);
 
-        JButton addInfo = new JButton("Add a new hamper");
+        JButton addInfo = new JButton("Add hamper to order");
         addInfo.addActionListener(this);
         
         JPanel headerPanel = new JPanel();
-        headerPanel.setLayout(new FlowLayout());
+        headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
         
         JPanel clientPanel = new JPanel();
         clientPanel.setLayout(new FlowLayout());
@@ -86,8 +102,13 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
 
         JPanel addInfoPanel = new JPanel();
         addInfoPanel.setLayout(new FlowLayout());
+
+        JPanel mobilityInfoPanel = new JPanel();
+        mobilityInfoPanel.setLayout(new FlowLayout());
         
         headerPanel.add(instructions);
+        headerPanel.add(instructions2);
+        headerPanel.add(instructions3);
         clientPanel.add(adF);
         clientPanel.add(f);
         clientPanel.add(adM);
@@ -98,12 +119,14 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
         clientPanel.add(y);
         submitPanel.add(submitInfo);
         addInfoPanel.add(addInfo);
+        mobilityInfoPanel.add(mobilityInfo);
         
         this.add(headerPanel, BorderLayout.NORTH);
         this.add(clientPanel, BorderLayout.CENTER);
         this.add(submitPanel, BorderLayout.PAGE_END);
         //need to change placement because we can't see it on pop up window right now
         this.add(addInfoPanel, BorderLayout.EAST);
+        this.add(mobilityInfoPanel, BorderLayout.WEST);
     }
     
     public void actionPerformed(ActionEvent event){
@@ -115,11 +138,12 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
             if(validateInput()){
                 try {
                     orderProcessor();
+                    JOptionPane.showMessageDialog(this,"Hamper created. Enter new values to add another hamper (10 hampers max).\n Or press submit to complete order.");
                     //currentOrder.writeToTextFile();
                 } catch (IllegalArgumentException | FileNotFoundException | OrderCannotBeValidatedException e) {
                     JOptionPane.showMessageDialog(this,"Your order cannot be validated.");
                     //  Auto-generated catch block
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
                 //JOptionPane.showMessageDialog(this,"Your order is valid ");
             } 
@@ -174,6 +198,10 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
     //we will have to write this so that it stores them in client
     
     private void orderProcessor() throws IllegalArgumentException, FileNotFoundException, OrderCannotBeValidatedException{
+        numOfHampers++;
+        if (numOfHampers>10){
+            throw new IllegalArgumentException();
+        }
         currentOrder.addHamper(female, male, over, under);
         //new OrderForm(female, male, over, under);
     } 
