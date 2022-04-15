@@ -1,7 +1,5 @@
 package edu.ucalgary.ensf409;
 
-import java.io.*;
-import java.util.*;
 
 public class Client {
   
