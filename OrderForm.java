@@ -4,22 +4,19 @@ import java.util.*;
 import java.io.*;
 
 
-public class OrderForm{
+public class OrderForm implements FormattedOutput{
   
     //request will hold mutiple families
   private ArrayList<Family> request = new ArrayList<Family>();
-  private Family fam1;
-  private int numOfFamilies = 0;
-  private Hamper goodHamper;
   private List<Hamper> allHampers = new ArrayList<Hamper>();
 
   public OrderForm(int female, int male, int over, int under) throws IllegalArgumentException, FileNotFoundException, OrderCannotBeValidatedException{
-      fam1 = new Family(male, female, over, under);
+      /*fam1 = new Family(male, female, over, under);
       request.add(fam1);
-      numOfFamilies++;
       this.goodHamper = fam1.getHamper();
-      allHampers.add(goodHamper);
+      allHampers.add(goodHamper);*/
       //System.out.println("Hampers made");
+      addHamper(female, male, over, under);
   }
 
   public OrderForm(){
@@ -37,8 +34,10 @@ public class OrderForm{
   public void addHamper(int female, int male, int over, int under) throws IllegalArgumentException, OrderCannotBeValidatedException{
     Family nextFamily = new Family(male, female, over, under);
     request.add(nextFamily);
+    nextFamily.calculateWeeklyFamilyNutritionalNeeds();
     nextFamily.makeHamper();
     allHampers.add(nextFamily.getHamper());
+    nextFamily.getHamper().buildHamper();
     //System.out.println("Hamper created");
   }
   
@@ -47,9 +46,10 @@ public class OrderForm{
     try {
       FileWriter out = new FileWriter("OrderForm" +orderNumber+".txt");
       for(int i = 0; i<getFamily().size(); i++){
-        Family currFam = getFamily().get(i);
+        /*Family currFam = getFamily().get(i);
         int [] members = currFam.getFamilyMembers();
-        String familyMembers = new String(members[0]+" male, "+members[1]+" female, "+members[2]+" child above 8, "+members[3]+" child below 8");
+        String familyMembers = new String(members[0]+" male, "+members[1]+" female, "+members[2]+" child above 8, "+members[3]+" child below 8");*/
+        String familyMembers = getFormatted(i);
         out.write("Name: " + "\t\n" + "Date: " + "\t\n" + "Original Request: " + familyMembers + "\n");
         out.write("Mobility Needed: "+ mobility+"\n");
         Order currHamper = getAllHampers().get(i).getOrder();
@@ -71,6 +71,16 @@ public class OrderForm{
             System.err.println("Exception: " + e.getStackTrace()); //throws if there is some other exception
         }
   }
+
+  @Override
+  public String getFormatted(int index) {
+    Family currFam = getFamily().get(index);
+    int [] members = currFam.getFamilyMembers();
+    String familyMembers = new String(members[0]+" male, "+members[1]+" female, "+members[2]+" child above 8, "+members[3]+" child below 8");
+    return familyMembers;
+  }
+
+
 
             
            
