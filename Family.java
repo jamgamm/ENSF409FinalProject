@@ -27,29 +27,36 @@ public class Family {
     this.hamper = new Hamper(getWeeklyFamilyNutritionalNeeds());
   }
   
-  public Client getWeeklyFamilyNutritionalNeeds(){ ////finish the method???
-      int totalGrain = this.adultMale*NutritionalProfileClient.ADULTMALE.theProfile()[0]
-                     + this.adultFemale*NutritionalProfileClient.ADULTFEMALE.theProfile()[0]
-                     + this.childBelow*NutritionalProfileClient.CHILDBELOW.theProfile()[0]
-                     + this.childAbove*NutritionalProfileClient.CHILDABOVE.theProfile()[0];
-      int totalFV = this.adultMale*NutritionalProfileClient.ADULTMALE.theProfile()[1]
-                    + this.adultFemale*NutritionalProfileClient.ADULTFEMALE.theProfile()[1]
-                    + this.childBelow*NutritionalProfileClient.CHILDBELOW.theProfile()[1]
-                    + this.childAbove*NutritionalProfileClient.CHILDABOVE.theProfile()[1];
-      int totalPro = this.adultMale*NutritionalProfileClient.ADULTMALE.theProfile()[2]
-                    + this.adultFemale*NutritionalProfileClient.ADULTFEMALE.theProfile()[2]
-                    + this.childBelow*NutritionalProfileClient.CHILDBELOW.theProfile()[2]
-                    + this.childAbove*NutritionalProfileClient.CHILDABOVE.theProfile()[2];
-      int totalOther = this.adultMale*NutritionalProfileClient.ADULTMALE.theProfile()[3]
-                    + this.adultFemale*NutritionalProfileClient.ADULTFEMALE.theProfile()[3]
-                    + this.childBelow*NutritionalProfileClient.CHILDBELOW.theProfile()[3]
-                    + this.childAbove*NutritionalProfileClient.CHILDABOVE.theProfile()[3];
-      int totalCal = this.adultMale*NutritionalProfileClient.ADULTMALE.theProfile()[4]
-                    + this.adultFemale*NutritionalProfileClient.ADULTFEMALE.theProfile()[4]
-                    + this.childBelow*NutritionalProfileClient.CHILDBELOW.theProfile()[4]
-                    + this.childAbove*NutritionalProfileClient.CHILDABOVE.theProfile()[4];
-      this.nutritionalNeedsFamily = new Client(5, "Family", totalGrain*7, totalFV*7, totalPro*7, totalOther*7, totalCal*7);
+  public Client getWeeklyFamilyNutritionalNeeds(){ 
 	  return nutritionalNeedsFamily;
+  }
+
+  public void setWeeklyFamilyNutritionalNeeds(Client weekNeeds){
+    this.nutritionalNeedsFamily = weekNeeds;
+  }
+
+  public void calculateWeeklyFamilyNutritionalNeeds(){
+    int totalGrain = this.adultMale*NutritionalProfileClient.ADULTMALE.theProfile()[0]
+        + this.adultFemale*NutritionalProfileClient.ADULTFEMALE.theProfile()[0]
+        + this.childBelow*NutritionalProfileClient.CHILDBELOW.theProfile()[0]
+        + this.childAbove*NutritionalProfileClient.CHILDABOVE.theProfile()[0];
+    int totalFV = this.adultMale*NutritionalProfileClient.ADULTMALE.theProfile()[1]
+      + this.adultFemale*NutritionalProfileClient.ADULTFEMALE.theProfile()[1]
+      + this.childBelow*NutritionalProfileClient.CHILDBELOW.theProfile()[1]
+      + this.childAbove*NutritionalProfileClient.CHILDABOVE.theProfile()[1];
+    int totalPro = this.adultMale*NutritionalProfileClient.ADULTMALE.theProfile()[2]
+      + this.adultFemale*NutritionalProfileClient.ADULTFEMALE.theProfile()[2]
+      + this.childBelow*NutritionalProfileClient.CHILDBELOW.theProfile()[2]
+      + this.childAbove*NutritionalProfileClient.CHILDABOVE.theProfile()[2];
+    int totalOther = this.adultMale*NutritionalProfileClient.ADULTMALE.theProfile()[3]
+      + this.adultFemale*NutritionalProfileClient.ADULTFEMALE.theProfile()[3]
+      + this.childBelow*NutritionalProfileClient.CHILDBELOW.theProfile()[3]
+      + this.childAbove*NutritionalProfileClient.CHILDABOVE.theProfile()[3];
+    int totalCal = this.adultMale*NutritionalProfileClient.ADULTMALE.theProfile()[4]
+      + this.adultFemale*NutritionalProfileClient.ADULTFEMALE.theProfile()[4]
+      + this.childBelow*NutritionalProfileClient.CHILDBELOW.theProfile()[4]
+      + this.childAbove*NutritionalProfileClient.CHILDABOVE.theProfile()[4];
+    this.nutritionalNeedsFamily = new Client(5, "Family", totalGrain*7, totalFV*7, totalPro*7, totalOther*7, totalCal*7);
   }
   
   public Hamper getHamper(){
@@ -59,4 +66,5 @@ public class Family {
 	
   
 }
+
 
