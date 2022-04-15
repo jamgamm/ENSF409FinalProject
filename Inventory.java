@@ -145,8 +145,8 @@ public class Inventory {
 
             myStmt.setInt(1, itemID);
                         
-            int rowCount = myStmt.executeUpdate();
-            System.out.println("Rows affected: " + rowCount);
+            myStmt.executeUpdate();
+            //System.out.println("Rows affected: " + rowCount);
             
             myStmt.close();
 
