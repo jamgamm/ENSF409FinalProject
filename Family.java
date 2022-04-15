@@ -1,15 +1,12 @@
 package edu.ucalgary.ensf409;
 
-import java.util.LinkedList;
-
 public class Family {
 
   private int adultMale;
   private int adultFemale;
   private int childAbove;
   private int childBelow;
-  //private LinkedList<Client> familyList;
-  private Hamper hamper;
+  private Hamper hamper = null;
   private Client nutritionalNeedsFamily;
   
   public Family(int adultMale, int adultFemale, int childAbove, int childBelow /*Hamper hamper*/)throws IllegalArgumentException{
@@ -18,13 +15,17 @@ public class Family {
     this.adultFemale = adultFemale;
     this.childAbove = childAbove;
     this.childBelow = childBelow;
-    this.hamper = new Hamper(getWeeklyFamilyNutritionalNeeds());
+    //this.hamper = new Hamper(getWeeklyFamilyNutritionalNeeds());
     
   }
-   public int[] getFamilyMembers() { ////finish the method???
+   public int[] getFamilyMembers() {
 	   int[] familyMembers = {adultMale, adultFemale, childAbove, childBelow};
 	   return familyMembers;
-}
+  }
+
+  public void makeHamper() throws IllegalArgumentException, OrderCannotBeValidatedException{
+    this.hamper = new Hamper(getWeeklyFamilyNutritionalNeeds());
+  }
   
   public Client getWeeklyFamilyNutritionalNeeds(){ ////finish the method???
       int totalGrain = this.adultMale*NutritionalProfileClient.ADULTMALE.theProfile()[0]
@@ -48,7 +49,6 @@ public class Family {
                     + this.childBelow*NutritionalProfileClient.CHILDBELOW.theProfile()[4]
                     + this.childAbove*NutritionalProfileClient.CHILDABOVE.theProfile()[4];
       this.nutritionalNeedsFamily = new Client(5, "Family", totalGrain*7, totalFV*7, totalPro*7, totalOther*7, totalCal*7);
-      System.out.println("Total Grain: " + totalGrain + "Total FV: "+ totalFV);
 	  return nutritionalNeedsFamily;
   }
   
