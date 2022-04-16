@@ -150,15 +150,28 @@ public class Hamper {
     return ourFood;
   } 
 
+  /** Getters **/
   
+  /** 
+   * getter method to return the nutritional needs for family
+   * @return Client - returns the nutritional needs for family
+   */
   public Client getNutritionalNeedsFamily(){
     return nutritionalNeedsFamily;
   }
   
+  /** 
+   * getter method to return the hamper profile
+   * @return List<Client> - returns an ArrayList of Client objects
+   */
   public List<Client> getHamperProfile(){
       return hamperProfile;
   }
 
+  /** 
+   * getter method to return the 
+   * @return List<List<NutritionalProfile>> - returns an ArrayList of an ArrayList of possible objects
+   */
   public List<List<NutritionalProfile>> getPossible(){
     return possible;
   }
