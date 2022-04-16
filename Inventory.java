@@ -28,7 +28,6 @@ public class Inventory {
    * and clients from the database
    */
   public Inventory (){
-      // Database URL
     this.dbConnect = initializeConnection();
     loadFoodMap();
     loadClientMap();
@@ -40,6 +39,7 @@ public class Inventory {
    * the method getConnection will take in the database URL, the username "student"
    * and the password "ensf"
    * It will catch an SQLException if there is a failure or error in connecting to the database
+   * @return Connection - the connection to the database
    */
 //Must create a connection to the database, no arguments, no return value    
     public Connection initializeConnection(){
