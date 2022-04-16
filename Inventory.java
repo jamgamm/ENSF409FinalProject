@@ -1,29 +1,32 @@
 package edu.ucalgary.ensf409;
-
+/**
+ * A class that is responsible for creating connections to the database
+ * @author Jana Afifi, Amneet Deol, Jam Ivy Gammuac, Shanelle Li Chit Khim
+ * @version 1.6
+ * @since 1.0 
+ */
 import java.sql.*;
 import java.util.HashMap;
 
 public class Inventory {
-  //username and password need to be student and ensf409, url is the url for the database we'll use
   private final String URL = "jdbc:mysql://localhost/food_inventory";
-  private String USERNAME = "student";
-  private String PASSWORD = "ensf";
+  private final String USERNAME = "student";
+  private final String PASSWORD = "ensf";
   
-  //need these for connecting and accessing the database
   private Connection dbConnect;
   private ResultSet results;
   
-  //might be easier to use hashmap for the inventory
-  //key is an itemID which maps to a Food object
-  //this way we can access elements in a map through ID and access the corresponding Food
   private HashMap<Integer, NutritionalProfile> inventoryMap = new HashMap<Integer, NutritionalProfile>();
-  
-  //similarly, store the client nutritonal info in a hashmap too??
-  //key is the Client ID (1,2,3,4) which maps to nutrtional profile or food or family object?
+
   private HashMap<Integer, NutritionalProfile> clientMap = new HashMap<Integer, NutritionalProfile>();
-  
-  //private LinkedList<Food> inventoryList = new LinkedList<Food>();
-  
+
+  /*
+   * Constructor for the Inventory object
+   * The constructor will connect to the database so that the database can be accessed
+   * It will also call the loadFoodMap and loadClientMap methods to build the HashMaps
+   * that will contain the information about the NutritionalProfiles of the food inventory
+   * and clients from the database
+   */
   public Inventory (){
       // Database URL
     this.dbConnect = initializeConnection();
@@ -32,7 +35,12 @@ public class Inventory {
   }
   
 
-
+/**
+   * this method will create the connection to the database
+   * the method getConnection will take in the database URL, the username "student"
+   * and the password "ensf"
+   * It will catch an SQLException if there is a failure or error in connecting to the database
+   */
 //Must create a connection to the database, no arguments, no return value    
     public Connection initializeConnection(){
         //User "student" was created in sql command prompt and given access to database
@@ -46,20 +54,13 @@ public class Inventory {
       }
       return dbConnect;
     }
-    
-    public String getURL(){
-        return this.URL;
-    }
 
-    public String getUsername(){
-        return this.USERNAME;
-    }
-    
-    public String getPassword(){
-        return this.PASSWORD;
-    }
-
-  //populate the inventory map with food items from the avaiable food table in the database
+  /**
+   * this method will populate the inventoryMap HashMap with the foods available in the database
+   * The available food table will be read and store the values in each column in a
+   * NutritionalProfile object. Then each food item's Nutritional Profile will be added to
+   * the HashMap with the food's ID number as the key.
+   */
   public void loadFoodMap(){
     try{
       Statement myStmt = dbConnect.createStatement();
@@ -77,8 +78,7 @@ public class Inventory {
         int other = results.getInt("Other");
         int calories = results.getInt("Calories");
         
-        //make a new food object using the values we got for each item as the arguements
-        //combine nutri profile and food class?? will make it easier to keep all the info in 1 class
+        //make a new nutritional profile object using the values we got for each item as the arguements
         NutritionalProfile makeProfile = new NutritionalProfile(itemID, itemName, grainContent, FVContent, proContent, other, calories);
         //store the food into the hash map where the itemID is the key
         inventoryMap.put(itemID, makeProfile);
@@ -91,17 +91,13 @@ public class Inventory {
     }
   }
 
-  public HashMap<Integer, NutritionalProfile> getFoodMap(){
-      return this.inventoryMap;
-  }
-
-  public HashMap<Integer, NutritionalProfile> getClientMap(){
-    return this.clientMap;
-}
-  
-  //populate the client map with the infomation about each client's nutri needs
-  //store the nutri needs in a food/nutri profile object?
-  //mostly the same thing as food method above
+   /**
+   * this method will populate the clientMap HashMap with the client daily needs provided
+   * in the database.
+   * The daily client needs table will be read and store the values in each column in a
+   * NutritionalProfile object. Then each client's Nutritional Profile will be added to
+   * the HashMap with the client's ID number as the key.
+   */
   public void loadClientMap(){
     try{
       Statement myStmt = dbConnect.createStatement();
@@ -119,10 +115,9 @@ public class Inventory {
         int other = results.getInt("Other");
         int calories = results.getInt("Calories");
         
-        //make a new food object using the values we got for each item as the arguements
-        //combine nutri profile and food class?? will make it easier to keep all the info in 1 class
+        //make a new nutritional profile object using the values we got for each item as the arguements
         NutritionalProfile makeProfile = new NutritionalProfile(clientID, category, grainContent, FVContent, proContent, other, calories);
-        //store the food into the hash map where the itemID is the key
+        //store the client's information into the hash map where the itemID is the key
         clientMap.put(clientID, makeProfile);
       }
       myStmt.close();
@@ -133,6 +128,15 @@ public class Inventory {
     }
   }
   
+  /**
+  * @param itemID - the ID of an item in the inventoryMap that needs to be removed
+   * this method will remove a given item in the inventoryMap and also
+   * remove the same item in the database.
+   * First the item will be removed from the inventoryMap using the item's ID as the key,
+   * which will remove the key and the NutritionalProfile associated with it from the map.
+   * Then it will go to the database and delete the item in the available food table
+   * that corresponds to the given ID
+   */
   public void remove(int itemID){
     //remove the key, which will in turn also remove all the food data associated with it from the map
     inventoryMap.remove(itemID);
@@ -146,7 +150,6 @@ public class Inventory {
             myStmt.setInt(1, itemID);
                         
             myStmt.executeUpdate();
-            //System.out.println("Rows affected: " + rowCount);
             
             myStmt.close();
 
@@ -157,12 +160,62 @@ public class Inventory {
         }
   }
   
-  //this for if we're going to return Food object
+    /** Getters **/
+  
+  /**
+   * @return String - returns the URL needed to connect to the database
+   */
+    public String getURL(){
+        return this.URL;
+    }
+
+  /**
+   * @return String - returns the username needed to connect to the database
+   */
+    public String getUsername(){
+        return this.USERNAME;
+    }
+  
+    /**
+   * @return String - returns the password needed to connect to the database
+   */
+    public String getPassword(){
+        return this.PASSWORD;
+    }
+  
+  /**
+   * @return HashMap<Integer,NutritionalProfile> - returns the HashMap that contains the
+   * food nutritional profile information
+   */
+  public HashMap<Integer, NutritionalProfile> getFoodMap(){
+      return this.inventoryMap;
+  }
+
+  /**
+   * @return HashMap<Integer,NutritionalProfile> - returns the HashMap that contains the
+   * client nutritional profile information
+   */
+  public HashMap<Integer, NutritionalProfile> getClientMap(){
+    return this.clientMap;
+  }
+  
+  /**
+   * @param itemID - the ID number of the item that needs to be returned
+   * @return NutritionalProfile - returns the NutritionalProfile that corresponds to the given itemID
+   * this method will access the inventoryMap HashMap and get the NutritionalProfile associated with
+   * the key, which is the item ID
+   */
   public NutritionalProfile getItem(int itemID){
     NutritionalProfile wantedFood = inventoryMap.get(itemID);
     return wantedFood;
   }
   
+  /**
+    * this method is for closing the results and dbConnect when
+    * we are done with using the database.
+    * It is important to close these connections to prevent crashes
+    * or memory leakages
+    */
   public void close() {
         
       //for closing everything after we are done using them
