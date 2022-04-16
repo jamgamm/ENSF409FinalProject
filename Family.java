@@ -1,5 +1,13 @@
 package edu.ucalgary.ensf409;
 
+/**
+ * Class that provides family nutritional needs for use in hamper creation
+ * Each family has their own hamper 
+ * @author Jana Afifi, Amneet Deol, Jam Ivy Gammuac, Shanelle Li Chit Khim
+ * @version 1.5
+ * @since 1.0 
+ */
+
 public class Family {
 
   private int adultMale;
@@ -9,31 +17,29 @@ public class Family {
   private Hamper hamper = null;
   private Client nutritionalNeedsFamily;
   
-  public Family(int adultMale, int adultFemale, int childAbove, int childBelow /*Hamper hamper*/)throws IllegalArgumentException{
+	
+/*
+   * Constructor for the Family object
+   * @param adultMale - the provided number of Adult Males in the family
+   * @param adultFemal - the provided number of Adult Females in the family
+   * @param childAbove - the provided number of Children Above 8 in the family
+   * @param childBelow - the provided number of Children Below 8 in the family
+   */
+  public Family(int adultMale, int adultFemale, int childAbove, int childBelow){
 
     this.adultMale = adultMale;
     this.adultFemale = adultFemale;
     this.childAbove = childAbove;
     this.childBelow = childBelow;
-    //this.hamper = new Hamper(getWeeklyFamilyNutritionalNeeds());
     
   }
-   public int[] getFamilyMembers() {
-	   int[] familyMembers = {adultMale, adultFemale, childAbove, childBelow};
-	   return familyMembers;
-  }
+	
+
 
   public void makeHamper() throws IllegalArgumentException, OrderCannotBeValidatedException{
     this.hamper = new Hamper(getWeeklyFamilyNutritionalNeeds());
   }
   
-  public Client getWeeklyFamilyNutritionalNeeds(){ 
-	  return nutritionalNeedsFamily;
-  }
-
-  public void setWeeklyFamilyNutritionalNeeds(Client weekNeeds){
-    this.nutritionalNeedsFamily = weekNeeds;
-  }
 
   public void calculateWeeklyFamilyNutritionalNeeds(){
     int totalGrain = this.adultMale*NutritionalProfileClient.ADULTMALE.theProfile()[0]
@@ -63,8 +69,32 @@ public class Family {
     return this.hamper;
   }
 
-	
+/** Getters **/
+
+/**
+   * @return int[] - returns an integer array of the number of clients in the family
+   */
+   public int[] getFamilyMembers() {
+	   int[] familyMembers = {adultMale, adultFemale, childAbove, childBelow};
+	   return familyMembers;
+  }
   
-}
+/**
+   * @return Client - returns a Client profile of the nutrional needs for the family (for the week)
+   */
+	public Client getWeeklyFamilyNutritionalNeeds(){ 
+	  return nutritionalNeedsFamily;
+  }
+
+/** Setters **/
+
+/**
+   * @return void - returns an integer array of the number of clients in the family
+   */
+  public void setWeeklyFamilyNutritionalNeeds(Client weekNeeds){
+    this.nutritionalNeedsFamily = weekNeeds;
+  }
+  
+} // End of class declaration
 
 
