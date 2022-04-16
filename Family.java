@@ -34,13 +34,24 @@ public class Family {
     
   }
 	
+  
+/** Methods **/
 
-
+/**
+   * this method makes a new hamper of the weekly nutritional needs of the family and
+   * stores it in the hamper private variable
+*/
   public void makeHamper() throws IllegalArgumentException, OrderCannotBeValidatedException{
     this.hamper = new Hamper(getWeeklyFamilyNutritionalNeeds());
   }
   
 
+/**
+   * this method calculates the weekly nutrional needs for the family
+   * this method sums the caloric content for each category(grains, fruits and vegetables, protein, other, total calories)
+   * using the number of each client in the family and the NutrionalProfileClient enumeration
+   * the information is then used to create a new Client object which is stored in the nutrionalNeedsFamily private variable
+*/
   public void calculateWeeklyFamilyNutritionalNeeds(){
     int totalGrain = this.adultMale*NutritionalProfileClient.ADULTMALE.theProfile()[0]
         + this.adultFemale*NutritionalProfileClient.ADULTFEMALE.theProfile()[0]
@@ -65,11 +76,9 @@ public class Family {
     this.nutritionalNeedsFamily = new Client(5, "Family", totalGrain*7, totalFV*7, totalPro*7, totalOther*7, totalCal*7);
   }
   
-  public Hamper getHamper(){
-    return this.hamper;
-  }
 
-/** Getters **/
+	
+/** Getters and Setters **/
 
 /**
    * @return int[] - returns an integer array of the number of clients in the family
@@ -85,12 +94,19 @@ public class Family {
 	public Client getWeeklyFamilyNutritionalNeeds(){ 
 	  return nutritionalNeedsFamily;
   }
+	
+/**
+   * @return Hamper - returns the Hamper stored in the hamper private variable
 
-/** Setters **/
+*/
+  public Hamper getHamper(){
+    return this.hamper;
+  }
 
 /**
-   * @return void - returns an integer array of the number of clients in the family
-   */
+   * @param weekNeeds - sets the nutrionalNeedsFamily variable to 
+   * a Client profile for the weekly nutrional needs for the family
+*/
   public void setWeeklyFamilyNutritionalNeeds(Client weekNeeds){
     this.nutritionalNeedsFamily = weekNeeds;
   }
