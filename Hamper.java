@@ -169,21 +169,31 @@ public class Hamper {
   }
 
   /** 
-   * getter method to return the 
+   * getter method to return the ??
    * @return List<List<NutritionalProfile>> - returns an ArrayList of an ArrayList of possible objects
    */
   public List<List<NutritionalProfile>> getPossible(){
     return possible;
   }
 
+  /** 
+   * @param givenPossible - sets the ?? variable to the 
+   * 
+   */
   public void setPossible(List<List<NutritionalProfile>> givenPossible){
     this.possible = givenPossible;
   }
   
+  /** 
+   * @param profile - sets the profile variable to the hamper profile
+   */
   public void setHamperProfile(List<Client> profile){
     this.hamperProfile = profile;
   }
-
+ /** 
+   * getter method to return the order
+   * @return Order - returns the order objects
+   */
   public Order getOrder(){
     return theOrder;
   }
