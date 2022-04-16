@@ -1,5 +1,13 @@
 package edu.ucalgary.ensf409;
 
+/**
+ * Class that provides the Graphical User Interface information
+ * the program is run from the GUI
+ * @author Jana Afifi, Amneet Deol, Jam Ivy Gammuac, Shanelle Li Chit Khim
+ * @version 1.9
+ * @since 1.0 
+ */
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.*;
@@ -34,6 +42,14 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
     private String mobility = "No";
     private int numOfHampers = 0;
     
+   
+    /*
+   * Constructor for the GUI object
+   * there are no given parameters
+   * the constructor provides the setup information for the GUI
+   * including the size of the pop-up window, the heading, and information to close the operation 
+   * upon closing the popup window (JFrame)
+   */
     public GUI(){
         super("Create a Hamper");
         setupGUI();
@@ -42,6 +58,22 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
         
     }
     
+  
+ /** Methods **/
+
+    
+/**
+   * this method sets up the GUI by creating the progrma instructions at the top 
+   * there are 4 entry boxes created for user (integer) input to list the number of each specific client
+   * the entry boxes have example inputs preset that disappear once the entry box is engaged (ie clicked)
+   * there are 3 buttons
+   * the first button, submitInfo, handles order form submission once the order has been completed
+   * if the order can be completed, there is a message shown and a text file created with the order form and hamper details
+   * the next button, mobilityInfo, handles if mobility assistance is required and will detail this in the text file as well
+   * the next button is the addInfo button which handles if multiple hampers are requested for a specific order
+   * there are 5 panels created to handle the information with the headerPanel having a box layout to display the instructions easier
+   * the panels are also specificed with their location on the page
+*/
     public void setupGUI(){
         
         instructions = new JLabel("Please enter the number of family members to generate a hamper. Please enter 0 if no members.");
@@ -85,8 +117,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
             }
         });
         
-        //JButton submitInfo = new JButton("Submit");
-        //submitInfo.addActionListener(this);
 
         JButton addInfo = new JButton("Add hamper to order");
         addInfo.addActionListener(this);
@@ -124,11 +154,18 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
         this.add(headerPanel, BorderLayout.NORTH);
         this.add(clientPanel, BorderLayout.CENTER);
         this.add(submitPanel, BorderLayout.PAGE_END);
-        //need to change placement because we can't see it on pop up window right now
         this.add(addInfoPanel, BorderLayout.EAST);
         this.add(mobilityInfoPanel, BorderLayout.WEST);
     }
     
+    
+ /**
+   * this method handles actions that are peformed by the user
+   * @param event - for the ActionEvent performed
+   * when integers are entered in the entry boxes, there is valid input (otherwise there is a NumberFormatException and an error popup) 
+   * with the correct input and the addInfo button pressed, the user can add more hampers to the order or they can submit the order using the order form
+   * if more than 10 hampers are added to an order, an error popup is displayed
+*/
     public void actionPerformed(ActionEvent event){
         try{
         female = Integer.parseInt(f.getText());
@@ -152,17 +189,13 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
             JOptionPane.showMessageDialog(this,"Please enter numbers only.");
         }
         
-        /*if(validateInput()){
-            try {
-                orderProcessor();
-            } catch (IllegalArgumentException | FileNotFoundException e) {
-                //  Auto-generated catch block
-                e.printStackTrace();
-            }
-            JOptionPane.showMessageDialog( this,"Your order is valid ");
-        }*/
     }
     
+     /**
+   * this method handles actions when the user's mouse is clicked
+   * @param event - for the MouseEvent performed
+   * if the user clicks into the entry boxes, the preset information disappears and they are able to enter their information
+*/
     public void mouseClicked(MouseEvent event){
         
         if(event.getSource().equals(f))
@@ -179,37 +212,62 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
                 
     }
     
+ /**
+   * this method handles actions when the user's mouse enters
+   * @param event - for the MouseEvent performed
+*/
     public void mouseEntered(MouseEvent event){
         
     }
 
+ /**
+   * this method handles actions when the user's mouse exits
+   * @param event - for the MouseEvent performed
+*/
     public void mouseExited(MouseEvent event){
         
     }
 
+  /**
+   * this method handles actions when the user's mouse is pressed
+   * @param event - for the MouseEvent performed
+*/
     public void mousePressed(MouseEvent event){
         
     }
-
+    
+ /**
+   * this method handles actions when the user's mouse is released
+   * @param event - for the MouseEvent performed
+*/
     public void mouseReleased(MouseEvent event){
         
     }
     
-    //we will have to write this so that it stores them in client
-    
+ 
+ /**
+   * this method processes the order input from the user
+   * it uses numOfHampers to track the number of hampers in the order
+   * if more than 10 hampers are entered, there is an IllegalArgumentException
+   * otherwise each hamper is added to the order form using the family information (order form has an array list of the hampers requested for
+   each order)
+*/
     private void orderProcessor() throws IllegalArgumentException, FileNotFoundException, OrderCannotBeValidatedException{
         numOfHampers++;
         if (numOfHampers>10){
             throw new IllegalArgumentException();
         }
         currentOrder.addHamper(female, male, over, under);
-        //new OrderForm(female, male, over, under);
     } 
 
     
     
-    
-    //we will have to write this so that the only inputs allowed are integers (or we make it a dropdown menu)
+  /**
+   * @return boolean - returns true if the entry boxes have correct inputs 
+   * this method checks if the entry box information is valid (for all 4)
+   * only natural numbers are allowed - with a max number input of 10 for each client category
+   * it will return false if any of the boxes have incorrect information and will show an error popup message
+*/
     private boolean validateInput(){
         
         boolean allInputValid = true;
@@ -239,6 +297,10 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
     }
 
     
+   /**
+   * the main method runs the program by setting the GUI to be visible once the program is compiled and run
+   * @param args
+*/ 
     public static void main(String[] args) {
         
         EventQueue.invokeLater(() -> {
@@ -246,4 +308,4 @@ public class GUI extends JFrame implements ActionListener, MouseListener{
         });
     }
         
-}
+} // End of class declaration
