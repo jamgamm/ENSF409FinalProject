@@ -18,6 +18,8 @@ public class Hamper {
   
   /** 
    * @param familyNeeds - the weekly nutritional needs of a family
+   * @exception IllegalArgumentException when invalid input are entered 
+   * for family needs
    */
   public Hamper(Client familyNeeds) throws IllegalArgumentException{
     this.nutritionalNeedsFamily = familyNeeds;
