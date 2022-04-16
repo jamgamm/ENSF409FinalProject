@@ -4,7 +4,7 @@ package edu.ucalgary.ensf409;
  * Class that provides family nutritional needs for use in hamper creation
  * Each family has their own hamper 
  * @author Jana Afifi, Amneet Deol, Jam Ivy Gammuac, Shanelle Li Chit Khim
- * @version 1.5
+ * @version 1.7
  * @since 1.0 
  */
 
