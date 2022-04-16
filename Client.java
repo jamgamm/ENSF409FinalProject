@@ -115,4 +115,4 @@ public class Client {
    return this.calories;
   }
 
-}
+}// End of class declaration
