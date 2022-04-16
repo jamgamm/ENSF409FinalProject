@@ -41,7 +41,6 @@ public class Inventory {
    * It will catch an SQLException if there is a failure or error in connecting to the database
    * @return Connection - the connection to the database
    */
-//Must create a connection to the database, no arguments, no return value    
     public Connection initializeConnection(){
         //User "student" was created in sql command prompt and given access to database
         //getConnection function was used to connect to database
