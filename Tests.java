@@ -15,7 +15,6 @@ import static org.junit.Assert.*;
 import java.beans.Transient;
 import java.io.*;
 import java.util.*;
-//any other libraries we need to import
 
 public class Tests {
   private Hamper sampleHamper = null;
@@ -128,6 +127,8 @@ public class Tests {
     }
     assertTrue("Method findBestCombo did not return the expected result", equal);
   }
+  
+  
   /* this section is for testing the methods related to the client class */
   
   // this tests whether the client object was properly created
@@ -215,6 +216,8 @@ public class Tests {
     assertEquals("Method getProContent did not return the expected result: ", expectedCalories, actualCalories);
   }
 
+  
+  
   /* this section is for testing the methods related to the Nutritional Profile class */
   
   // the first test attempts to create a NutritionalProfile object when given valid input
@@ -456,6 +459,7 @@ public class Tests {
     assertTrue("Method findBestCombo did not return the expected result", equal);
   }
     
+  
   /* this section will test the exceptions for various methods */
   
     @Test
