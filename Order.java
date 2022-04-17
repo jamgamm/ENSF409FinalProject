@@ -19,7 +19,7 @@ public class Order {
   /** Constructor **/
   
   /** 
-   * @param theHamper - a hamper object that contains 
+   * @param theHamper - constructor, sets myHamper object to the given hamper
    */
   public Order(Hamper theHamper){
     this.myHamper = theHamper;
