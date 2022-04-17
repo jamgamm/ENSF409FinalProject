@@ -126,25 +126,7 @@ public class Tests {
     assertEquals("Method getCalories did not return the expected result: ", expectedCalories, actualCalories);
   }
   
-  
-  /* this section is for testing the methods related to the Inventory class*/
-  
-  /*@Test
-  public void testInventoryGetter(){
-    //test the getter for inventory class
-    int sampleInventoryID = sampleInventory.getItem(1).getID();
-    int expectedInventoryID = 1;
-    assertEquals("Method getItem did not return the expected result: ", expectedInventoryID, sampleInventoryID);
-  }
-    
-  @Test
-  public void testRemove(){
-    //test the remove function by trying to remove tomato sauce
-    sampleInventory.remove(1);
-    int sampleInventoryID = sampleInventory.getItem(1).getID();
-    String expectedInventoryID = null;
-    assertEquals("Method remove did not return the expected result: ", expectedInventoryID, sampleInventoryID);
-  }
+ 
   
   /* this section is for testing the methods related to the Hamper class */
   
@@ -164,6 +146,34 @@ public class Tests {
 
     Client sampleNutriProfile = sampleHamper.getNutritionalNeedsFamily();
     assertNotNull("Method getNutritionalNeedsFamily did not return a Client object", sampleNutriProfile);
+  }
+  
+  @Test
+  public void testCreateHamperFoodList(){
+    HashMap<Integer,NutritionalProfile> sampleMap = new HashMap<Integer, NutritionalProfile>();
+    sampleProfile = new NutritionalProfile(12, "Celariac, 1 kg", 2000, 400, 350, 1250, 2500);
+    sampleMap.put(1, sampleProfile);
+
+    NutritionalProfile sampleProfile2 = new NutritionalProfile(2, "Banana", 0, 4000, 0, 1250, 2500);
+    sampleMap.put(2, sampleProfile2);
+
+    sampleFamily = new Family(1,1,1,1);
+    sampleClient = new Client(400, 700, 650, 750, 2500);
+    sampleHamper = new Hamper(sampleClient);
+    sampleFamily.setWeeklyFamilyNutritionalNeeds(sampleClient);
+    List<NutritionalProfile> actualList = sampleHamper.create(sampleFamily.getWeeklyFamilyNutritionalNeeds(), 1, sampleMap);
+    List<NutritionalProfile> expectedList = new ArrayList<NutritionalProfile>();
+    expectedList.add(sampleProfile);
+    expectedList.add(sampleProfile2);
+    boolean equal = true;
+    for(int i = 0; i<actualList.size();i++){
+      if(actualList.get(i).getName()!=expectedList.get(i).getName()){
+        equal = false;
+      }
+    }
+    assertTrue("Method create did not create the expected values", equal);
+
+
   }
    
     
