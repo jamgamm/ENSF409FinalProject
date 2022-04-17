@@ -1,5 +1,14 @@
 package edu.ucalgary.ensf409;
 
+/**
+ * Class that provides nutritional information for a given client
+ * Each client is part of a family 
+ * @author Jana Afifi, Amneet Deol, Jam Ivy Gammuac, Shanelle Li Chit Khim
+ * @version 1.9
+ * @since 1.0 
+ */
+
+
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -363,7 +372,7 @@ public class Tests {
         assertTrue("Hamper constructor throws IllegalArgumentException when given valid data", passed);
   }
 }
-
+// End of test class declaration
     
     
   
