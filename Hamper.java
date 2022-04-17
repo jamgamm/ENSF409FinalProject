@@ -36,7 +36,7 @@ public class Hamper {
    */
   public void buildHamper() throws OrderCannotBeValidatedException{
     Inventory foodInventory = new Inventory();
-    foodMap = foodInventory.getFoodMap();
+    HashMap<Integer, NutritionalProfile> foodMap = foodInventory.getFoodMap();
     for(int j = 1; j<1001; j++){
       List<NutritionalProfile> generated = create(nutritionalNeedsFamily, j,foodMap);
       possible.add(generated);
