@@ -90,11 +90,66 @@ public class Tests {
   }
   
   @Test
-  public void testClientGetters(){
+  public void testClientCategoryGetters(){
     //test the getters for the client class
+    sampleClient = new Client(1, "Adult male", 16, 28, 26, 30, 2500);
     String actualCategory = sampleClient.getName();
     String expectedCategory = "Adult male";
     assertEquals("Method getCategory did not return the expected result: ", expectedCategory, actualCategory);
+  }
+
+  @Test
+  public void testClientIDGetters(){
+    //test the getters for the client class
+    sampleClient = new Client(1, "Adult male", 16, 28, 26, 30, 2500);
+    int actualID = sampleClient.getID();
+    int expectedID = 1;
+    assertEquals("Method getCategory did not return the expected result: ", expectedID, actualID);
+  }
+
+  @Test
+  public void testClientGrainGetters(){
+    //test the getters for the client class
+    sampleClient = new Client(1, "Adult male", 16, 28, 26, 30, 2500);
+    int actualGrain = sampleClient.getGrainContent();
+    int expectedGrain = 16;
+    assertEquals("Method getCategory did not return the expected result: ", expectedGrain, actualGrain);
+  }
+
+  @Test
+  public void testClientProGetter(){
+    //test the getters for the nutritional profile class
+    sampleClient = new Client(1, "Adult male", 16, 28, 26, 30, 2500);
+    int actualPro = sampleClient.getProContent();
+    int expectedPro = 26;
+    assertEquals("Method getProContent did not return the expected result: ", expectedPro, actualPro);
+  }
+  
+  @Test
+  public void testClientFVGetter(){
+    //test the getters for the nutritional profile class
+    sampleClient = new Client(1, "Adult male", 16, 28, 26, 30, 2500);
+    int actualFV = sampleClient.getFVContent();
+    int expectedFV = 28;
+    assertEquals("Method getProContent did not return the expected result: ", expectedFV, actualFV);
+  }
+
+  @Test
+  public void testClientOtherGetter(){
+    //test the getters for the nutritional profile class
+    sampleClient = new Client(1, "Adult male", 16, 28, 26, 30, 2500);
+    int actualOther = sampleClient.getOther();
+    int expectedOther = 30;
+    assertEquals("Method getProContent did not return the expected result: ", expectedOther, actualOther);
+  }
+
+  @Test
+  public void testClientCalorieGetter(){
+    //test the getters for the nutritional profile class
+    sampleClient = new Client(1, "Adult male", 16, 28, 26, 30, 2500);
+    int actualCalories = sampleClient.getOther();
+    int expectedCalories = 30;
+    assertEquals("Method getProContent did not return the expected result: ", expectedCalories, actualCalories);
   }
 
   /* this section is for testing the methods related to the Nutritional Profile class */
@@ -106,25 +161,69 @@ public class Tests {
   }
   
   @Test
-  public void testProfileGetters(){
+  public void testIDGetter(){
+    //test the getters for the nutritional profile class
+    sampleProfile = new NutritionalProfile(1,"Banana",0,80,10,10,120);
+    int actualID = sampleProfile.getID();
+    int expectedID = 1;
+    assertEquals("Method getGrainContent did not return the expected result: ", expectedID, actualID);
+  }
+
+  @Test
+  public void testNameGetter(){
+    //test the getters for the nutritional profile class
+    sampleProfile = new NutritionalProfile(1,"Banana",0,80,10,10,120);
+    String actualName = sampleProfile.getName();
+    String expectedName = "Banana";
+    assertEquals("Method getGrainContent did not return the expected result: ", expectedName, actualName);
+  }
+
+  @Test
+  public void testGrainGetter(){
     //test the getters for the nutritional profile class
     sampleProfile = new NutritionalProfile(0,80,10,10,120);
     int actualGrains = sampleProfile.getGrainContent();
     int expectedGrains = 0;
     assertEquals("Method getGrainContent did not return the expected result: ", expectedGrains, actualGrains);
+  }
+
+  @Test
+  public void testFVGetter(){
+    //test the getters for the nutritional profile class
+    sampleProfile = new NutritionalProfile(0,80,10,10,120);
     int actualFV = sampleProfile.getFVContent();
     int expectedFV = 96;
     assertEquals("Method getFVContent did not return the expected result: ", expectedFV, actualFV);
-    int actualPro = sampleProfile.getProContent();
-    int expectedPro = 12;
-    assertEquals("Method getProContent did not return the expected result: ", expectedPro, actualPro);
+
+  }
+
+  @Test
+  public void testOtherGetter(){
+    //test the getters for the nutritional profile class
+    sampleProfile = new NutritionalProfile(0,80,10,10,120);
     int actualOther = sampleProfile.getOther();
     int expectedOther = 12;
     assertEquals("Method getOther did not return the expected result: ", expectedOther, actualOther);
+  }
+
+  @Test
+  public void testProGetter(){
+    //test the getters for the nutritional profile class
+    sampleProfile = new NutritionalProfile(0,80,10,10,120);
+    int actualPro = sampleProfile.getProContent();
+    int expectedPro = 12;
+    assertEquals("Method getProContent did not return the expected result: ", expectedPro, actualPro);
+  }
+
+  @Test
+  public void testCalorieGetter(){
+    //test the getters for the nutritional profile class
+    sampleProfile = new NutritionalProfile(0,80,10,10,120);
     int actualCalories = sampleProfile.getCalories();
     int expectedCalories = 120;
     assertEquals("Method getCalories did not return the expected result: ", expectedCalories, actualCalories);
   }
+  
   
  
   
