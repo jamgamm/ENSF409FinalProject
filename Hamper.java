@@ -169,7 +169,7 @@ public class Hamper {
   }
 
   /** 
-   * getter method to return the ??
+   * getter method to return the possible food combination for a hamper
    * @return List<List<NutritionalProfile>> - returns an ArrayList of an ArrayList of possible objects
    */
   public List<List<NutritionalProfile>> getPossible(){
@@ -177,7 +177,7 @@ public class Hamper {
   }
 
   /** 
-   * @param givenPossible - sets the ?? variable to the 
+   * @param givenPossible - sets the possible food combination for a hamper variable to the global variable possible
    * 
    */
   public void setPossible(List<List<NutritionalProfile>> givenPossible){
