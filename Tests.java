@@ -63,6 +63,21 @@ public class Tests {
     assertTrue("Method findBestCombo did not return the expected result", equal);
   }
   
+   @Test
+  public void testFamilyGettersFull(){
+    //test getters in family class
+    sampleFamily = new Family(1,1,1,1);
+    int[] actualMembers = sampleFamily.getFamilyMembers();
+    int[] expectedMembers = {1,1,1,1};
+    boolean equal = true;
+    for(int i = 0; i<expectedMembers.length; i++){
+      if(actualMembers[i]!=expectedMembers[i]){
+        equal = false;
+      }
+    }
+    assertTrue("Method getFamilyMembers did not return the expected result", equal);
+  }
+  
   @Test
   public void testFamilyCalculation(){
     //test the calculation for weekly nutritional needs of the family
@@ -81,6 +96,23 @@ public class Tests {
     assertTrue("Method findBestCombo did not return the expected result", equal);
   }
 
+  @Test
+  public void testFamilyCalculationFull(){
+    //test the calculation for weekly nutritional needs of the family
+    sampleFamily = new Family(1,1,1,1);
+    sampleClient = new Client(400, 700, 650, 750, 2500);
+    sampleFamily.setWeeklyFamilyNutritionalNeeds(sampleClient);
+    Client actualCalculation = sampleFamily.getWeeklyFamilyNutritionalNeeds();
+    int[] actualCalculationValues = {actualCalculation.getGrainContent(),actualCalculation.getFVContent(),actualCalculation.getProContent(),actualCalculation.getOther(),actualCalculation.getCalories()};
+    int[] expectedCalculation = {400,700,650,750,2500};
+    boolean equal = true;
+    for(int i = 0; i<expectedCalculation.length; i++){
+      if(actualCalculationValues[i]!=expectedCalculation[i]){
+        equal = false;
+      }
+    }
+    assertTrue("Method findBestCombo did not return the expected result", equal);
+  }
   /* this section is for testing the methods related to the client class */
   @Test
   public void testClientConstructor(){
@@ -447,16 +479,20 @@ public class Tests {
         passed = true;
     }
     assertTrue("Client constructor does not throw IllegalArgumentException when given invalid data", passed);
-    passed = true;
-     try{
-      new Client(1,"Adult male",16,28,26,30,2500);
-    }
-    catch (IllegalArgumentException e){
-      passed = false;
-    }
-    catch (Exception e) { }
-        assertTrue("Client constructor throws IllegalArgumentException when given valid data", passed);
   } 
+
+  @Test
+  public void testGoodClientConstructorException(){
+    boolean passed = true;
+    try{
+     new Client(1,"Adult male",16,28,26,30,2500);
+   }
+   catch (IllegalArgumentException e){
+     passed = false;
+   }
+   catch (Exception e) { }
+       assertTrue("Client constructor throws IllegalArgumentException when given valid data", passed);
+  }
 
   @Test
   public void testHamperConstructorException(){
