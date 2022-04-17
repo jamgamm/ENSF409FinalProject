@@ -198,4 +198,4 @@ public class Hamper {
     return theOrder;
   }
 
-}
+}//End of class declaration
