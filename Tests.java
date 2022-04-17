@@ -1,8 +1,8 @@
 package edu.ucalgary.ensf409;
 
 /**
- * Class that provides nutritional information for a given client
- * Each client is part of a family 
+ * Class that provides test cases to ensure the code performs the desired task
+ * For every test case, we present 2 cases; one valid and one invalid case
  * @author Jana Afifi, Amneet Deol, Jam Ivy Gammuac, Shanelle Li Chit Khim
  * @version 1.9
  * @since 1.0 
@@ -26,6 +26,7 @@ public class Tests {
   private Order sampleOrder = null;
   private List<List<NutritionalProfile>> sampleFoodList= new ArrayList<List<NutritionalProfile>>();
   private List<NutritionalProfile> sampleFoodCombo = new ArrayList<NutritionalProfile>();
+  
   /* this section is for testing the methods in the family class 
   the first 4 tests under this comment are all for testing methods in family class */
   
@@ -47,6 +48,9 @@ public class Tests {
     assertNotNull("Family constructor did not create an object when given valid data", sampleFamily);
   }
   
+  // below, we test whether the family getter returns the proper family members set
+  // the method should return an int array
+  // the test is when we only have 1 member in the family
   @Test
   public void testFamilyGetters(){
     //test getters in family class
@@ -63,6 +67,9 @@ public class Tests {
     assertTrue("Method findBestCombo did not return the expected result", equal);
   }
   
+  // below, we test whether the family getter returns the proper family members set
+  // the method should return an int array
+  // the test is when we have all 4 categories of family member in one family
    @Test
   public void testFamilyGettersFull(){
     //test getters in family class
@@ -78,6 +85,10 @@ public class Tests {
     assertTrue("Method getFamilyMembers did not return the expected result", equal);
   }
   
+  // the method below tests whether the total calculation method is correct
+  // we compare the values obtained by manual calculation
+  // with the values obtained by running the code
+  // we first test when we have only 1 member in the family
   @Test
   public void testFamilyCalculation(){
     //test the calculation for weekly nutritional needs of the family
@@ -96,6 +107,10 @@ public class Tests {
     assertTrue("Method findBestCombo did not return the expected result", equal);
   }
 
+   // the method below tests whether the total calculation method is correct
+  // we compare the values obtained by manual calculation
+  // with the values obtained by running the code
+  // we now test when we have only 4 different members in the family
   @Test
   public void testFamilyCalculationFull(){
     //test the calculation for weekly nutritional needs of the family
@@ -114,6 +129,8 @@ public class Tests {
     assertTrue("Method findBestCombo did not return the expected result", equal);
   }
   /* this section is for testing the methods related to the client class */
+  
+  // this tests whether the client object was properly created
   @Test
   public void testClientConstructor(){
     //test the constructor when given a client of category adult male
@@ -121,6 +138,9 @@ public class Tests {
     assertNotNull("Client constructor did not create an object when given valid data", sampleClient);
   }
   
+  /** the tests below will ensure all the client getters return the proper information **/
+  
+  // this tests whether the category of the client is properly returned
   @Test
   public void testClientCategoryGetters(){
     //test the getters for the client class
@@ -130,6 +150,7 @@ public class Tests {
     assertEquals("Method getCategory did not return the expected result: ", expectedCategory, actualCategory);
   }
 
+  // this tests that the id of the client is properly returned
   @Test
   public void testClientIDGetters(){
     //test the getters for the client class
@@ -139,6 +160,8 @@ public class Tests {
     assertEquals("Method getCategory did not return the expected result: ", expectedID, actualID);
   }
 
+  // this tests whether the client's grain content requirement are properly returned against
+  // the values received from the inventory
   @Test
   public void testClientGrainGetters(){
     //test the getters for the client class
@@ -148,6 +171,8 @@ public class Tests {
     assertEquals("Method getCategory did not return the expected result: ", expectedGrain, actualGrain);
   }
 
+   // this tests whether the client's protein content requirement is properly returned against
+  // the value received from the inventory
   @Test
   public void testClientProGetter(){
     //test the getters for the nutritional profile class
@@ -157,6 +182,8 @@ public class Tests {
     assertEquals("Method getProContent did not return the expected result: ", expectedPro, actualPro);
   }
   
+  // this tests whether the client's fruits and veg content requirement is properly returned against
+  // the value received from the inventory
   @Test
   public void testClientFVGetter(){
     //test the getters for the nutritional profile class
@@ -166,6 +193,8 @@ public class Tests {
     assertEquals("Method getProContent did not return the expected result: ", expectedFV, actualFV);
   }
 
+  // this tests whether the client's other content requirement is properly returned against
+  // the value received from the inventory
   @Test
   public void testClientOtherGetter(){
     //test the getters for the nutritional profile class
@@ -175,6 +204,8 @@ public class Tests {
     assertEquals("Method getProContent did not return the expected result: ", expectedOther, actualOther);
   }
 
+  // this tests whether the client's total calorie requirement is properly returned against
+  // the value received from the inventory
   @Test
   public void testClientCalorieGetter(){
     //test the getters for the nutritional profile class
@@ -185,6 +216,8 @@ public class Tests {
   }
 
   /* this section is for testing the methods related to the Nutritional Profile class */
+  
+  // the first test attempts to create a NutritionalProfile object when given valid input
   @Test
   public void testProfileConstructor(){
     //test the constructor for nutrtional profile given all valid int values
@@ -192,6 +225,9 @@ public class Tests {
     assertNotNull("NutritionalProfile constructor did not create an object when given valid data", sampleProfile);
   }
   
+  /** the following section will test the getters in nutritional profile class **/
+  
+  // this test verifies whether the IDgetter properly returns the id
   @Test
   public void testIDGetter(){
     //test the getters for the nutritional profile class
@@ -201,6 +237,7 @@ public class Tests {
     assertEquals("Method getGrainContent did not return the expected result: ", expectedID, actualID);
   }
 
+  // this test verifies whether the IDgetter properly returns the name
   @Test
   public void testNameGetter(){
     //test the getters for the nutritional profile class
@@ -210,6 +247,7 @@ public class Tests {
     assertEquals("Method getGrainContent did not return the expected result: ", expectedName, actualName);
   }
 
+  // this test verifies whether the IDgetter properly returns the grain content
   @Test
   public void testGrainGetter(){
     //test the getters for the nutritional profile class
@@ -219,6 +257,7 @@ public class Tests {
     assertEquals("Method getGrainContent did not return the expected result: ", expectedGrains, actualGrains);
   }
 
+  // this test verifies whether the IDgetter properly returns the fruit and veg content
   @Test
   public void testFVGetter(){
     //test the getters for the nutritional profile class
@@ -229,6 +268,7 @@ public class Tests {
 
   }
 
+  // this test verifies whether the IDgetter properly returns the other content
   @Test
   public void testOtherGetter(){
     //test the getters for the nutritional profile class
@@ -238,6 +278,7 @@ public class Tests {
     assertEquals("Method getOther did not return the expected result: ", expectedOther, actualOther);
   }
 
+  // this test verifies whether the IDgetter properly returns the protein content
   @Test
   public void testProGetter(){
     //test the getters for the nutritional profile class
@@ -247,6 +288,7 @@ public class Tests {
     assertEquals("Method getProContent did not return the expected result: ", expectedPro, actualPro);
   }
 
+  // this test verifies whether the IDgetter properly returns the total calorie content
   @Test
   public void testCalorieGetter(){
     //test the getters for the nutritional profile class
