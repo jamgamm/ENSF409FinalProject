@@ -24,4 +24,4 @@ Instructions on running the code through the GUI
 5. Click on submit to finalise the order
 6. You may create multiple orders as well before quitting the program (continue through steps 3-5 until satisfied) 
 7. On receipt of successful order completion, proceed to check on the
-   txt files created to see the food added to each order
+   txt files created in your working directory to see the list of food added to each order
