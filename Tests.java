@@ -305,7 +305,7 @@ public class Tests {
  
   
   /* this section is for testing the methods related to the Hamper class */
-  
+  //this test is to make sure that the hamper constructor is creating an object using valid data
   @Test
   public void testHamperConstructor(){
     //test the constructor when given a valid nutrtional profile
@@ -314,7 +314,7 @@ public class Tests {
     assertNotNull("Hamper constructor did not create an object when given valid data", sampleHamper);
   }
   
-  
+  //this test is to make sure that the family nutritional needs is returning client object
   @Test
   public void testGetNutriNeeds(){
     //test getter
@@ -324,6 +324,7 @@ public class Tests {
     assertNotNull("Method getNutritionalNeedsFamily did not return a Client object", sampleNutriProfile);
   }
   
+  // This test is to make sure that foodList is created using the create method
   @Test
   public void testCreateHamperFoodList(){
     HashMap<Integer,NutritionalProfile> sampleMap = new HashMap<Integer, NutritionalProfile>();
@@ -354,7 +355,7 @@ public class Tests {
    
     
  /* this section will test the methods related to the order class */
-  
+  //this test is to make sure that the order constructor is creating an object
   @Test
   public void testOrderConstructor(){
     Order sampleOrder = new Order(sampleHamper);
