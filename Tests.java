@@ -361,7 +361,7 @@ public class Tests {
     Order sampleOrder = new Order(sampleHamper);
     assertNotNull("Order constructor did not create an object when given valid data", sampleOrder);
   }
-    
+   //this test is to make sure that the method find the best combination is returning the right result
   @Test
   public void testFindBestCombo(){
     sampleProfile = new NutritionalProfile(67, "Banana, bunch 5", 0, 4054, 0, 4642, 7000);
@@ -411,7 +411,7 @@ public class Tests {
     assertTrue("Method findBestCombo did not return the expected result", equal);
     //assertEquals("Method findBestCombo did not return the expected result: ", expectedBestCombo, bestCombo);
   }
-
+//this test is to check the items in the best combination of hamper
   @Test
   public void testFindBestComboItems(){
     sampleProfile = new NutritionalProfile(67, "Banana, bunch 5", 0, 4054, 0, 4642, 7000);
@@ -462,7 +462,7 @@ public class Tests {
     
   
   /* this section will test the exceptions for various methods */
-  
+  //this test is to check if an exception will be thrown from findbestcombo method
     @Test
   public void testCannotBeValidated(){
     sampleProfile = new NutritionalProfile(67, "Banana, bunch 5", 0, 100, 0, 120, 300);
@@ -498,7 +498,7 @@ public class Tests {
 
     assertTrue("Method findBestCombo does not throw an OrderCannotBeValiedException when hamper does not meet requirements", passed);
   }
-  
+  //This test is to check if family constructor throws an exception if given invalid data
   @Test
   public void testFamilyConstructorException(){
     boolean passed = true;
@@ -514,7 +514,7 @@ public class Tests {
         assertTrue("Family constructor throws an IllegalArgumentException when given valid data", passed);
   }
     
-   
+   //this test is to make sure that client constructor throws an exception when the input is invalid
   @Test
   public void testClientConstructorException(){
     //test that an illegal arguement exception is thrown when invalid data is given
@@ -527,7 +527,7 @@ public class Tests {
     }
     assertTrue("Client constructor does not throw IllegalArgumentException when given invalid data", passed);
   } 
-
+   //this test is to make sure that client constructor throws an exception when the input is invalid
   @Test
   public void testGoodClientConstructorException(){
     boolean passed = true;
@@ -540,7 +540,7 @@ public class Tests {
    catch (Exception e) { }
        assertTrue("Client constructor throws IllegalArgumentException when given valid data", passed);
   }
-
+// this test is to make sure that the hamper constructor throws an IllegalArgumentException exception when it is given invalid data 
   @Test
   public void testHamperConstructorException(){
     boolean passed = false;
