@@ -540,7 +540,8 @@ public class Tests {
    catch (Exception e) { }
        assertTrue("Client constructor throws IllegalArgumentException when given valid data", passed);
   }
-// this test is to make sure that the hamper constructor throws an IllegalArgumentException exception when it is given invalid data 
+// this test is to make sure that the hamper constructor throws an IllegalArgumentException exception 
+//when it is given invalid data 
   @Test
   public void testHamperConstructorException(){
     boolean passed = false;
