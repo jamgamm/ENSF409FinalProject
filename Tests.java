@@ -465,9 +465,12 @@ public class Tests {
     
   
   /* this section will test the exceptions for various methods
-  It is important to note that for some methods the exceptions are handled by the GUI,
-  and therefore we are allowed tp assume that these exceptions are being handled properly 
-  and we do not need to add tests for them*/
+  
+  *It is important to note that for some methods the exceptions are handled by the GUI,
+  and therefore we are allowed to assume that these exceptions are being handled properly 
+  and we do not need to add tests for them here*/
+  
+  
   
   /*this test is to check if an OrderCannotBeValidated exception will be thrown from the bestcombo method if
   all possible hamper combinations do not meet the minimum nutritional requirements for a family
