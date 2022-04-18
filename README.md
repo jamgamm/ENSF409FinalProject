@@ -3,6 +3,8 @@
 Group Number: 20
 Team Members: Jana Afifi, Amneet Deol, Jam Ivy Gammuac, Shanelle Li Chit Khim
 
+To run the GUI, run the file GUI.java
+
 Instructions on running the code through the GUI
 ... after compiling and running ...
 
