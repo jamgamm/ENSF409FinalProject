@@ -4,6 +4,7 @@ Group Number: 20
 Team Members: Jana Afifi, Amneet Deol, Jam Ivy Gammuac, Shanelle Li Chit Khim
 
 To compile the program, use javac -cp .;lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/*.java
+
 You may encounter an error in compiling if the Tests.java file is still in the path edu/ucalgary/ensf409 so please
 move the Tests.java file to the 20 folder if this problem occurs.
 
