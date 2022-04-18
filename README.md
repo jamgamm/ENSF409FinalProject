@@ -33,4 +33,5 @@ Instructions on running the code through the GUI
 If you wish to run the Tests.java file, use the following prompts:
 Move the Tests.java file back to edu/ucalgary/ensf409 if it was previously not in that location
 Then use javac -cp .;junit-4.13.2.jar;hamcrest-core-1.3.jar edu/ucalgary/ensf409/*.java to compile
+
 And java -cp .;junit-4.13.2.jar;hamcrest-core-1.3.jar org.junit.runner.JUnitCore edu.ucalgary.ensf409.Tests to run the tests.
