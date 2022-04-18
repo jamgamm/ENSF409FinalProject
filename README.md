@@ -3,7 +3,11 @@
 Group Number: 20
 Team Members: Jana Afifi, Amneet Deol, Jam Ivy Gammuac, Shanelle Li Chit Khim
 
-To run the GUI, run the file GUI.java
+To compile the program, use javac -cp .;lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/*.java
+You may encounter an error in compiling if the Tests.java file is still in the path edu/ucalgary/ensf409 so please
+move the Tests.java file to the 20 folder if this problem occurs.
+
+To run the program, use java -cp .;lib/mysql-connector-java-8.0.23.jar edu.ucalgary.ensf409.GUI
 
 Instructions on running the code through the GUI
 ... after compiling and running ...
@@ -25,3 +29,8 @@ Instructions on running the code through the GUI
 6. You may create multiple orders as well before quitting the program (continue through steps 3-5 until satisfied) 
 7. On receipt of successful order completion, proceed to check on the
    txt files created in your working directory to see the list of food added to each order
+
+If you wish to run the Tests.java file, use the following prompts:
+Move the Tests.java file back to edu/ucalgary/ensf409 if it was previously not in that location
+Then use javac -cp .;junit-4.13.2.jar;hamcrest-core-1.3.jar edu/ucalgary/ensf409/*.java to compile
+And java -cp .;junit-4.13.2.jar;hamcrest-core-1.3.jar org.junit.runner.JUnitCore edu.ucalgary.ensf409.Tests to run the tests.
