@@ -361,7 +361,9 @@ public class Tests {
     Order sampleOrder = new Order(sampleHamper);
     assertNotNull("Order constructor did not create an object when given valid data", sampleOrder);
   }
-   //this test is to make sure that the method find the best combination is returning the right result
+  
+   /*this test is to make sure that the method find the best combination is returning the correct
+   combination of foods that meet a family's nutritional needs with the least amount of excess*/
   @Test
   public void testFindBestCombo(){
     sampleProfile = new NutritionalProfile(67, "Banana, bunch 5", 0, 4054, 0, 4642, 7000);
@@ -411,7 +413,8 @@ public class Tests {
     assertTrue("Method findBestCombo did not return the expected result", equal);
     //assertEquals("Method findBestCombo did not return the expected result: ", expectedBestCombo, bestCombo);
   }
-//this test is to check the items in the best combination of hamper
+  
+//this test is to check the items in the best combination of hamper are the correct food items
   @Test
   public void testFindBestComboItems(){
     sampleProfile = new NutritionalProfile(67, "Banana, bunch 5", 0, 4054, 0, 4642, 7000);
@@ -461,8 +464,14 @@ public class Tests {
   }
     
   
-  /* this section will test the exceptions for various methods */
-  //this test is to check if an exception will be thrown from findbestcombo method
+  /* this section will test the exceptions for various methods
+  It is important to note that for some methods the exceptions are handled by the GUI,
+  and therefore we are allowed tp assume that these exceptions are being handled properly 
+  and we do not need to add tests for them*/
+  
+  /*this test is to check if an OrderCannotBeValidated exception will be thrown from the bestcombo method if
+  all possible hamper combinations do not meet the minimum nutritional requirements for a family
+  and therefore the order cannot be validated*/
     @Test
   public void testCannotBeValidated(){
     sampleProfile = new NutritionalProfile(67, "Banana, bunch 5", 0, 100, 0, 120, 300);
@@ -498,11 +507,14 @@ public class Tests {
 
     assertTrue("Method findBestCombo does not throw an OrderCannotBeValiedException when hamper does not meet requirements", passed);
   }
-  //This test is to check if family constructor throws an exception if given invalid data
+  
+  //This test is to check if family constructor does not throw an exception if given valid data
+  /* note that the arguments passed through this constructor are inputs from the GUI, and when
+  invalid inputs are given, the GUI handles them so that is why there is no corresponding test
+  for when the family constructor is given invalid data because the GUI has already handled it */
   @Test
   public void testFamilyConstructorException(){
     boolean passed = true;
-    //test that an illegal arguement exception is thrown when invalid data is given
     
     try{
       new Family(1, 0, 0, 0);
@@ -527,7 +539,8 @@ public class Tests {
     }
     assertTrue("Client constructor does not throw IllegalArgumentException when given invalid data", passed);
   } 
-   //this test is to make sure that client constructor throws an exception when the input is invalid
+  
+   //this test is to make sure that client constructor does not throw an exception when the input is valid
   @Test
   public void testGoodClientConstructorException(){
     boolean passed = true;
@@ -540,8 +553,9 @@ public class Tests {
    catch (Exception e) { }
        assertTrue("Client constructor throws IllegalArgumentException when given valid data", passed);
   }
-// this test is to make sure that the hamper constructor throws an IllegalArgumentException exception 
-//when it is given invalid data 
+  
+/* this test is to first make sure that the hamper constructor throws an IllegalArgumentException exception 
+when it is given invalid data, then checks if the hamper does not throw an exception when given valid data*/ 
   @Test
   public void testHamperConstructorException(){
     boolean passed = false;
